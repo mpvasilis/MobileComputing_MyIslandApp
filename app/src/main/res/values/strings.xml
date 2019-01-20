@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">My Island App</string>
+
+    <string name="city_name">My Island App</string>
+    <string name="city_address">Kozani, Greece</string>
+    <string name="about_text">Πληροφορίες σχετικά με το νισί. Αξιοθέατα, εστίαση, διαμονή και παραλίες.</string>
+
+    <!-- API KEY FOR MAP -->
+    <string name="api_key">AIzaSyAXeqPB3GmI3VvYXvT7t31TrhctXtPCg-E</string>
+
+
+    <string name="navigation_drawer_open">Ανοιγμα μενού</string>
+    <string name="navigation_drawer_close">Κλείσιμο μενού</string>
+    <string name="title_nav_all">Όλα τα μέρη</string>
+    <string name="title_nav_tour">Αξιοθέατα</string>
+    <string name="title_nav_food">Εστίαση</string>
+    <string name="title_nav_hotels">Διαμονή</string>
+    <string name="title_nav_ent">Παραλίες</string>
+
+
+    <!--=== activity FullScreenImage =========================================================== -->
+    <string name="image_of">%1$d από %2$d</string>
+
+    <!--=== activity Main ====================================================================== -->
+    <string name="press_again_exit_app">Πατήστε το πίσω κουμπί ξανά για έξοδο</string>
+
+    <string name="no_item_at">Δεν βρέθηκαν μέρη στα/στις</string>
+    <string name="dialog_content_gps">
+       Το GPS είναι απενεργοποιημένο στη συσκευή σας. Θέλετε να το ενεργοποιήσετε;
+    </string>
+    <string name="activity_title_maps">@string/title_nav_all</string>
+
+    <string name="add_favorite">added to favorites</string>
+    <string name="remove_favorite">remove from favorites</string>
+    <string name="no_phone_number">Δεν καταχωρήθηκε τηλέφωνο</string>
+    <string name="no_website">Δεν καταχωρήθηκε ιστοσελίδα</string>
+    <string name="fail_dial_number">Μη έγκυρος αριθμός για κλήση</string>
+    <string name="fail_open_website">Μη έγκυρος ιστότοπος</string>
+    <string name="unable_create_map">Απέτυχε η δημιουργία χάρτη</string>
+    <string name="failed_load_details">Απέτυχε η φώρτωση των πληροφοριών απο τον server</string>
+    <string name="photos_title">Φωτογραφίες</string>
+    <string name="description_title">Περιγραφή</string>
+    <string name="map_title">Χάρτης</string>
+    <string name="map_view">Προβολή</string>
+    <string name="map_navigate">Πλοήγηση</string>
+
+    <string name="hint_search">Αναζήτηση Παραλίας</string>
+    <string name="please_fill">Γράψτε κάτι...</string>
+
+
+    <string name="refresh_failed">Απέτυχε η ανανέωση</string>
+    <string name="load_of">Φόρτωση %1$d από τα %2$d</string>
+    <string name="load_success">Επιτυχής φόρτωση δεδομένων</string>
+
+
+    <string name="action_settings">Settings</string>
+    <string name="no_internet">Δεν υπάρχει σύνδεση στο internet</string>
+    <string name="task_running">Task still running</string>
+    <string name="no_item">Κανένα μέρος</string>
+
+    <!--Basic action Text-->
+    <string name="OK">OK</string>
+    <string name="YES">ΝΑΙ</string>
+    <string name="NO">ΟΧΙ</string>
+    <string name="DISMISS">ΚΛΕΙΣΙΜΟ</string>
+    <string name="RETRY">Δοκιμή ξανά</string>
+    <string name="FAILED">Απέτυχε</string>
+
+
+</resources>

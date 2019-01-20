@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#568AB7</color>
+    <color name="colorPrimaryDark">#4576a1</color>
+    <color name="colorPrimaryLight">#709cc2</color>
+
+    <color name="colorAccent">#E6C14D</color>
+    <color name="colorAccentDark">#C4A035</color>
+    <color name="colorAccentLight">#FEEAAB</color>
+
+    <color name="grey_hard">#96989A</color>
+    <color name="grey_medium">#BDBFC1</color>
+    <color name="grey_soft">#F5F5F5</color>
+    <color name="grey_mdark">#424242</color>
+    <color name="grey_dark">#332C2B</color>
+
+    <color name="grey_bg">#E6E6E6</color>
+    <color name="icon_drawer_color">#727272</color>
+    <color name="drawer_header_bg">#568AB7</color>
+
+    <color name="marker_primary">#1F59A6</color>
+    <color name="marker_secondary">#EE792A</color>
+
+    <color name="dark_overlay">#73000000</color>
+    <color name="dark_soft_overlay">#33000000</color>
+    <color name="grid_title_bg">#FFFFFF</color>
+
+
+    <string-array name="arr_main_color_name">
+        <item>Default</item>
+        <item>Red</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>Deep Purple</item>
+
+        <item>Indigo</item>
+        <item>Blue</item>
+        <item>Light Blue</item>
+        <item>Cyan</item>
+        <item>Teal</item>
+
+        <item>Green</item>
+        <item>Orange</item>
+        <item>Deep Orange</item>
+        <item>Brown</item>
+        <item>Blue Grey</item>
+    </string-array>
+
+    <string-array name="arr_main_color_code">
+        <item>#568AB7</item>
+        <item>#F44336</item>
+        <item>#EC407A</item>
+        <item>#9C27B0</item>
+        <item>#673AB7</item>
+
+        <item>#3F51B5</item>
+        <item>#2196F3</item>
+        <item>#03A9F4</item>
+        <item>#00BCD4</item>
+        <item>#009688</item>
+
+        <item>#4CAF50</item>
+        <item>#FF9800</item>
+        <item>#FF5722</item>
+        <item>#795548</item>
+        <item>#607D8B</item>
+    </string-array>
+
+</resources>

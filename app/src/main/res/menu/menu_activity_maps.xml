@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_category"
+        android:icon="@drawable/ic_menu_category"
+        android:title="Category"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/nav_all"
+                android:title="@string/title_nav_all"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/nav_tour"
+                android:title="@string/title_nav_tour"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/nav_food"
+                android:title="@string/title_nav_food"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/nav_hotels"
+                android:title="@string/title_nav_hotels"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/nav_ent"
+                android:title="@string/title_nav_ent"
+                app:showAsAction="never" />
+
+        </menu>
+
+    </item>
+</menu>

@@ -1,0 +1,33 @@
+package vasilis.myislandapp.data;
+
+import android.app.Application;
+import android.location.Location;
+import android.util.Log;
+
+import vasilis.myislandapp.utils.Tools;
+
+public class ThisApplication extends Application {
+
+    private static ThisApplication mInstance;
+    private Location location = null;
+
+    public static synchronized ThisApplication getInstance() {
+        return mInstance;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.d("MyIslandApp", "onCreate : ThisApplication");
+        mInstance = this;
+        Tools.initImageLoader(getApplicationContext());
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--this id_category must be same with id_category server database-->
+    <!--<item>cat_id same with server database value</item> -->
+    <integer-array name="id_category">
+        <item>1</item> <!--TOURIST_DESTINATION-->
+        <item>2</item> <!--FOOD_DRINK-->
+        <item>3</item> <!--HOTELS-->
+        <item>4</item> <!--BEACHES-->
+
+    </integer-array>
+
+    <string-array name="category_name">
+        <item>Αξιοθέατα</item>
+        <item>Εστίαση</item>
+        <item>Διαμονή</item>
+        <item>Παραλίες</item>
+    </string-array>
+
+    <integer-array name="category_icon">
+        <item>@drawable/ic_nav_tour</item>
+        <item>@drawable/ic_nav_food</item>
+        <item>@drawable/ic_nav_hotels</item>
+        <item>@drawable/ic_nav_beach</item>
+    </integer-array>
+
+
+</resources>
