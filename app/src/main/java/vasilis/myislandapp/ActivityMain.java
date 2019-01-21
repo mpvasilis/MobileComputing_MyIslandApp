@@ -32,7 +32,6 @@ import vasilis.myislandapp.utils.Tools;
 
 public class ActivityMain extends AppCompatActivity {
 
-    //for ads
 
     static ActivityMain activityMain;
     static boolean active = false;
@@ -157,11 +156,9 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     public boolean onItemSelected(int id, String title) {
-        // Handle navigation view item clicks here.
         Fragment fragment = null;
         Bundle bundle = new Bundle();
         switch (id) {
-            //sub menu
             case R.id.nav_all:
                 fragment = new FragmentCategory();
                 bundle.putInt(FragmentCategory.TAG_CATEGORY, -1);
@@ -191,8 +188,6 @@ public class ActivityMain extends AppCompatActivity {
             default:
                 break;
 
-            /* IMPORTANT : cat[index_array], index is start from 0
-             */
         }
 
         if (fragment != null) {
