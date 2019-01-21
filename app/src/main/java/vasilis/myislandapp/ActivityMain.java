@@ -115,7 +115,6 @@ public class ActivityMain extends AppCompatActivity {
             }
         });
 
-        // navigation header
         View nav_header = navigationView.getHeaderView(0);
         nav_header_lyt = nav_header.findViewById(R.id.nav_header_lyt);
         nav_header_lyt.setBackgroundColor(Tools.colorBrighter(sharedPref.getThemeColorInt()));

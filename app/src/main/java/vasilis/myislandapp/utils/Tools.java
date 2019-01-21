@@ -1,7 +1,6 @@
 package vasilis.myislandapp.utils;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -172,19 +171,6 @@ public class Tools {
         return googleMap;
     }
 
-    public static void rateAction(Activity activity) {
-        Uri uri = Uri.parse("market://details?id=" + activity.getPackageName());
-        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-        try {
-            activity.startActivity(goToMarket);
-        } catch (ActivityNotFoundException e) {
-            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + activity.getPackageName())));
-        }
-    }
-
-    private static String getPlayStoreUrl(Activity act) {
-        return "http://play.google.com/store/apps/details?id=" + act.getPackageName();
-    }
 
     public static void aboutAction(Activity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);

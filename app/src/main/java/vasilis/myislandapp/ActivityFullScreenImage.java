@@ -43,7 +43,6 @@ public class ActivityFullScreenImage extends AppCompatActivity {
 
         text_page.setText(String.format(getString(R.string.image_of), (position + 1), total));
 
-        // displaying selected image first
         viewPager.setCurrentItem(position);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -70,7 +69,6 @@ public class ActivityFullScreenImage extends AppCompatActivity {
             }
         });
 
-        // for system bar in lollipop
         Tools.systemBarLolipop(this);
     }
 
