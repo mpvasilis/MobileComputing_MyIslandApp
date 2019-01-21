@@ -13,7 +13,8 @@ import vasilis.myislandapp.BuildConfig;
 
 public class RestAdapter {
 
-    public static String API_URL = "http://demo.dream-space.web.id/the_city/";
+    public static String BASE_URL = "http://myislandapp.vasilis.pw/api/public/";
+    public static String API_URL = "http://myislandapp.vasilis.pw/api/public/api/";
 
     public static API createAPI() {
 
@@ -38,7 +39,7 @@ public class RestAdapter {
     }
 
     public static String getURLimgPlace(String file_name) {
-        return API_URL + "uploads/place/" + file_name;
+        return BASE_URL + "uploads/" + file_name;
     }
 
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Place implements Serializable, ClusterItem {
-    public int place_id;
+    public int id;
     public String name;
     public String image;
     public String address;
@@ -19,8 +19,8 @@ public class Place implements Serializable, ClusterItem {
     public double lat;
     public long last_update;
     public float distance = -1;
+    public int category;
 
-    public List<Category> categories = new ArrayList<>();
     public List<Images> images = new ArrayList<>();
 
     @Override

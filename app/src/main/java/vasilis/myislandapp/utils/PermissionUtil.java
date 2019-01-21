@@ -16,7 +16,6 @@ public abstract class PermissionUtil {
     public static final String STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     public static final String LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
 
-    /* Permission required for application */
     public static final String[] PERMISSION_ALL = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.ACCESS_FINE_LOCATION

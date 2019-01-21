@@ -13,7 +13,7 @@ public interface API {
     String AGENT = "User-Agent: Place";
 
     @Headers({CACHE, AGENT})
-    @GET("app/services/listPlaces")
+    @GET("places")
     Call<CallbackListPlace> getPlacesByPage(
             @Query("page") int page,
             @Query("count") int count,
@@ -21,9 +21,9 @@ public interface API {
     );
 
     @Headers({CACHE, AGENT})
-    @GET("app/services/getPlaceDetails")
+    @GET("places")
     Call<CallbackPlaceDetails> getPlaceDetails(
-            @Query("place_id") int place_id
+            @Query("id") int place_id
     );
 
 

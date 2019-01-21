@@ -256,7 +256,7 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
             marker_bg.setColorFilter(getResources().getColor(R.color.marker_primary));
             markerOptions.title(item.name);
             markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Tools.createBitmapFromView(ActivityMaps.this, marker_view)));
-            if (ext_place != null && ext_place.place_id == item.place_id) {
+            if (ext_place != null && ext_place.id == item.id) {
                 markerOptions.visible(false);
             }
         }

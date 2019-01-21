@@ -5,7 +5,7 @@
     <string name="city_address">Kozani, Greece</string>
     <string name="about_text">Πληροφορίες σχετικά με το νισί. Αξιοθέατα, εστίαση, διαμονή και παραλίες.</string>
 
-    <string name="api_key">AIzaSyAXeqPB3GmI3VvYXvT7t31TrhctXtPCg-E</string>
+    <string name="api_key">AIzaSyCQFy8xIavDsIgatGXrYcTcmNKEbuBXrXI</string>
     <string name="navigation_drawer_open">Ανοιγμα μενού</string>
     <string name="navigation_drawer_close">Κλείσιμο μενού</string>
     <string name="title_nav_all">Όλα τα μέρη</string>
@@ -32,8 +32,8 @@
     <string name="photos_title">Φωτογραφίες</string>
     <string name="description_title">Περιγραφή</string>
     <string name="map_title">Χάρτης</string>
-    <string name="map_view">Προβολή</string>
-    <string name="map_navigate">Πλοήγηση</string>
+    <string name="map_view">ΠΡΟΒΟΛΗ</string>
+    <string name="map_navigate">ΟΔΗΓΙΕΣ</string>
 
     <string name="hint_search">Αναζήτηση Παραλίας</string>
     <string name="please_fill">Γράψτε κάτι...</string>

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -52,7 +51,6 @@ public class ActivityPlaceDetail extends AppCompatActivity {
     private static final String EXTRA_NOTIF_FLAG = "key.EXTRA_NOTIF_FLAG";
     private Place place = null;
     private ImageLoader imgloader = ImageLoader.getInstance();
-    private FloatingActionButton fab;
     private WebView description = null;
     private View parent_view = null;
     private GoogleMap googleMap;
@@ -95,32 +93,14 @@ public class ActivityPlaceDetail extends AppCompatActivity {
         place = (Place) getIntent().getSerializableExtra(EXTRA_OBJ);
         isFromNotif = getIntent().getBooleanExtra(EXTRA_NOTIF_FLAG, false);
 
-        fab = findViewById(R.id.fab);
         lyt_progress = findViewById(R.id.lyt_progress);
         lyt_distance = findViewById(R.id.lyt_distance);
         imgloader.displayImage(RestAdapter.getURLimgPlace(place.image), (ImageView) findViewById(R.id.image));
         distance = place.distance;
-
-        fabToggle();
         setupToolbar(place.name);
         initMap();
 
-        // handle when favorite button clicked
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (db.isFavoritesExist(place.place_id)) {
-                    db.deleteFavorites(place.place_id);
-                    Snackbar.make(parent_view, place.name + " " + getString(R.string.remove_favorite), Snackbar.LENGTH_SHORT).show();
-                } else {
-                    db.addFavorites(place.place_id);
-                    Snackbar.make(parent_view, place.name + " " + getString(R.string.add_favorite), Snackbar.LENGTH_SHORT).show();
-                }
-                fabToggle();
-            }
-        });
 
-        // for system bar in lollipop
         Tools.systemBarLolipop(this);
 
     }
@@ -153,7 +133,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
             ((TextView) findViewById(R.id.distance)).setText(Tools.getFormatedDistance(distance));
         }
 
-        setImageGallery(db.getListImageByPlaceId(p.place_id));
+        setImageGallery(db.getListImageByPlaceId(p.id));
     }
 
     @Override
@@ -195,7 +175,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
         // add optional image into list
         List<Images> new_images = new ArrayList<>();
         final ArrayList<String> new_images_str = new ArrayList<>();
-        new_images.add(new Images(place.place_id, place.image));
+        new_images.add(new Images(place.id, place.image));
         new_images.addAll(images);
         for (Images img : new_images) {
             new_images_str.add(RestAdapter.getURLimgPlace(img.name));
@@ -216,13 +196,6 @@ public class ActivityPlaceDetail extends AppCompatActivity {
         });
     }
 
-    private void fabToggle() {
-        if (db.isFavoritesExist(place.place_id)) {
-            fab.setImageResource(R.drawable.ic_nav_favorites);
-        } else {
-            fab.setImageResource(R.drawable.ic_nav_favorites_outline);
-        }
-    }
 
     private void setupToolbar(String name) {
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -239,9 +212,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (collapsing_toolbar.getHeight() + verticalOffset < 2 * ViewCompat.getMinimumHeight(collapsing_toolbar)) {
-                    fab.show();
                 } else {
-                    fab.hide();
                 }
             }
         });
@@ -284,7 +255,6 @@ public class ActivityPlaceDetail extends AppCompatActivity {
         findViewById(R.id.bt_navigate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getApplicationContext(),"OPEN", Toast.LENGTH_LONG).show();
                 Intent navigation = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?daddr=" + place.lat + "," + place.lng));
                 startActivity(navigation);
             }
@@ -336,10 +306,10 @@ public class ActivityPlaceDetail extends AppCompatActivity {
 
     // places detail load with lazy scheme
     private void loadPlaceData() {
-        place = db.getPlace(place.place_id);
+        place = db.getPlace(place.id);
         if (place.isDraft()) {
             if (Tools.cekConnection(this)) {
-                requestDetailsPlace(place.place_id);
+                requestDetailsPlace(place.id);
             } else {
                 onFailureRetry(getString(R.string.no_internet));
             }
