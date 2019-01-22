@@ -13,8 +13,8 @@ import vasilis.myislandapp.BuildConfig;
 
 public class RestAdapter {
 
-    public static String BASE_URL = "http://myislandapp.vasilis.pw/api/public/";
-    public static String API_URL = "http://myislandapp.vasilis.pw/api/public/api/";
+    public static String BASE_URL = "http://myislandapp.vasilis.pw/";
+    public static String API_URL = "http://myislandapp.vasilis.pw/api/";
 
     public static API createAPI() {
 
