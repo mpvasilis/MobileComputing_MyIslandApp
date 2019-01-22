@@ -31,8 +31,8 @@ import vasilis.myislandapp.data.DatabaseHandler;
 import vasilis.myislandapp.data.SharedPref;
 import vasilis.myislandapp.data.ThisApplication;
 import vasilis.myislandapp.model.Place;
+import vasilis.myislandapp.utils.SpacingItemDecoration;
 import vasilis.myislandapp.utils.Tools;
-import vasilis.myislandapp.widget.SpacingItemDecoration;
 
 public class FragmentCategory extends Fragment {
 
@@ -266,7 +266,7 @@ public class FragmentCategory extends Fragment {
             onFailureRetry(page_no, getString(R.string.refresh_failed));
             return;
         }
-        if ((page_no * 50) > count_total) { // when all data loaded
+        if ((page_no * 50) > count_total) {
             onProcess = false;
             showProgress(onProcess);
             startLoadMoreAdapter();

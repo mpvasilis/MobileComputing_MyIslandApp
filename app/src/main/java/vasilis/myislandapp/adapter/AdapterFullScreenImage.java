@@ -13,7 +13,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.List;
 
 import vasilis.myislandapp.R;
-import vasilis.myislandapp.widget.TouchImageView;
+import vasilis.myislandapp.utils.TouchImageView;
 
 public class AdapterFullScreenImage extends PagerAdapter {
 

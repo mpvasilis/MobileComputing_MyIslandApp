@@ -1,4 +1,4 @@
-package vasilis.myislandapp.widget;
+package vasilis.myislandapp.utils;
 
 import android.content.Context;
 import android.graphics.Matrix;

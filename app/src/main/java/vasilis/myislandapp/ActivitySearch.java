@@ -31,8 +31,8 @@ import vasilis.myislandapp.adapter.AdapterPlaceGrid;
 import vasilis.myislandapp.adapter.AdapterSuggestionSearch;
 import vasilis.myislandapp.data.DatabaseHandler;
 import vasilis.myislandapp.model.Place;
+import vasilis.myislandapp.utils.SpacingItemDecoration;
 import vasilis.myislandapp.utils.Tools;
-import vasilis.myislandapp.widget.SpacingItemDecoration;
 
 public class ActivitySearch extends AppCompatActivity {
 
