@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="@string/beach_options"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+
+        <Button
+            android:id="@+id/top_beaches"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:text="TOP ΠΑΡΑΛΙΕΣ"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/near_me"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
+            android:background="@color/colorPrimaryDark"
+            android:text="ΚΟΝΤΑ ΣΕ ΕΜΕΝΑ"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/search_beaches"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
+            android:background="@color/colorPrimaryDark"
+            android:text="ΑΝΑΖΗΤΗΣΗ"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

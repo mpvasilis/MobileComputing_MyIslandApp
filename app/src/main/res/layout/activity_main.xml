@@ -44,6 +44,7 @@
             android:clickable="true"
             android:src="@drawable/ic_search"
             android:tint="@android:color/white"
+            android:visibility="invisible"
             app:layout_anchor="@id/frame_content"
             app:layout_anchorGravity="end|bottom" />
 

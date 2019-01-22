@@ -200,7 +200,7 @@ public class ActivitySearch extends AppCompatActivity {
         if (!query.equals("")) {
             mAdapterSuggestion.addSearchHistory(query);
             mAdapter.resetListData();
-            mAdapter.insertData(Tools.filterItemsWithDistance(this, db.searchAllPlace(query)));
+            mAdapter.insertData(Tools.filterItemsWithDistance(this, db.searchBeaches(query)));
             showNotFoundView();
         } else {
             Toast.makeText(this, R.string.please_fill, Toast.LENGTH_SHORT).show();

@@ -199,6 +199,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    public List<Place> searchBeaches(String keyword) {
+        List<Place> locList = new ArrayList<>();
+        Cursor cur;
+        keyword = keyword.toLowerCase();
+        cur = db.rawQuery("SELECT * FROM " + TABLE_PLACE + " WHERE ( LOWER(" + KEY_NAME + ") LIKE ? OR LOWER(" + KEY_ADDRESS + ") LIKE ? OR LOWER(" + KEY_DESCRIPTION + ") LIKE ? ) AND " + KEY_CATEGORY + "=4",
+                new String[]{"%" + keyword + "%", "%" + keyword + "%", "%" + keyword + "%"});
+        locList = getListPlaceByCursor(cur);
+        return locList;
+    }
+
     public List<Place> searchAllPlace(String keyword) {
         List<Place> locList = new ArrayList<>();
         Cursor cur;

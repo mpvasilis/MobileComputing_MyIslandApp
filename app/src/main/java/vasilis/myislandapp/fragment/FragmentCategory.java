@@ -1,5 +1,7 @@
 package vasilis.myislandapp.fragment;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -14,6 +16,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,6 +27,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 import vasilis.myislandapp.ActivityMain;
 import vasilis.myislandapp.ActivityPlaceDetail;
+import vasilis.myislandapp.ActivitySearch;
 import vasilis.myislandapp.R;
 import vasilis.myislandapp.adapter.AdapterPlaceGrid;
 import vasilis.myislandapp.api.RestAdapter;
@@ -54,6 +59,7 @@ public class FragmentCategory extends Fragment {
 
     private Call<CallbackListPlace> callback;
     private boolean onProcess = false;
+    private boolean dialogopend = false;
 
     @Nullable
     @Override
@@ -98,8 +104,67 @@ public class FragmentCategory extends Fragment {
                 }
             }
         });
-        startLoadMoreAdapter();
+
+        if (category_id != 4) {
+            startLoadMoreAdapter();
+        }
+
+        if (category_id == 4) {
+            showBeachDialog();
+        }
+
         return root_view;
+    }
+
+
+    public void showBeachDialog() {
+        if (!dialogopend) {
+            adapter.resetListData();
+            final Dialog dialog = new Dialog(getActivity());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.beach_short_dialog);
+
+            dialog.setCancelable(false);
+            dialog.show();
+
+            Button top_beaches = dialog.findViewById(R.id.top_beaches);
+            Button near_me = dialog.findViewById(R.id.near_me);
+            Button search_beaches = dialog.findViewById(R.id.search_beaches);
+
+
+            top_beaches.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startLoadMoreAdapter();
+                    dialog.dismiss();
+                    dialogopend = false;
+
+                }
+            });
+
+            near_me.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startLoadMoreAdapter();
+                    dialog.dismiss();
+                    dialogopend = false;
+
+                }
+            });
+
+            search_beaches.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getActivity(), ActivitySearch.class);
+                    startActivity(i);
+                    dialog.dismiss();
+                    dialogopend = false;
+
+                }
+            });
+            dialogopend = true;
+        }
+
     }
 
     @Override
@@ -113,8 +178,13 @@ public class FragmentCategory extends Fragment {
 
     @Override
     public void onResume() {
+        if (category_id == 4) {
+            showBeachDialog();
+        }
         adapter.notifyDataSetChanged();
         super.onResume();
+
+
     }
 
     @Override
@@ -123,7 +193,10 @@ public class FragmentCategory extends Fragment {
         if (sharedPref.isRefreshPlaces() || db.getPlacesSize() == 0) {
             actionRefresh(sharedPref.getLastPlacePage());
         } else {
-            startLoadMoreAdapter();
+            if (category_id != 4) {
+                startLoadMoreAdapter();
+            }
+
         }
     }
 

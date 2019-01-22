@@ -3,7 +3,6 @@ package vasilis.myislandapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -20,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -227,7 +225,6 @@ public class ActivityMain extends AppCompatActivity {
         if (!imgloader.isInited()) Tools.initImageLoader(this);
         if (actionBar != null) {
             Tools.setActionBarColor(this, actionBar);
-            // for system bar in lollipop
             Tools.systemBarLolipop(this);
         }
         if (nav_header_lyt != null) {
@@ -248,8 +245,5 @@ public class ActivityMain extends AppCompatActivity {
         active = false;
     }
 
-    private void updateFavoritesCounter(NavigationView nav, @IdRes int itemId, int count) {
-        TextView view = nav.getMenu().findItem(itemId).getActionView().findViewById(R.id.counter);
-        view.setText(String.valueOf(count));
-    }
+
 }
