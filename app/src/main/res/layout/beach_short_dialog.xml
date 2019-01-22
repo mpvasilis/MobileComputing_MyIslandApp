@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
-            android:text="TOP ΠΑΡΑΛΙΕΣ"
+            android:text="@string/top_beaches"
             android:textColor="@android:color/white" />
 
         <Button
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10px"
             android:background="@color/colorPrimaryDark"
-            android:text="ΚΟΝΤΑ ΣΕ ΕΜΕΝΑ"
+            android:text="@string/near_me"
             android:textColor="@android:color/white" />
 
         <Button
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10px"
             android:background="@color/colorPrimaryDark"
-            android:text="ΑΝΑΖΗΤΗΣΗ"
+            android:text="@string/search_beaches"
             android:textColor="@android:color/white" />
 
     </LinearLayout>
