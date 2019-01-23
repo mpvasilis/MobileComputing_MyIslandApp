@@ -5,6 +5,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import vasilis.myislandapp.api.callbacks.CallbackBeachRating;
 import vasilis.myislandapp.api.callbacks.CallbackListPlace;
 import vasilis.myislandapp.api.callbacks.CallbackPlaceDetails;
 
@@ -46,7 +47,7 @@ public interface API {
 
     @Headers({CACHE, AGENT})
     @POST("rateBeach")
-    Call<CallbackPlaceDetails> rateBeach(
+    Call<CallbackBeachRating> rateBeach(
             @Query("id") int place_id,
             @Query("rating") int rating,
             @Query("deviceID") String deviceID

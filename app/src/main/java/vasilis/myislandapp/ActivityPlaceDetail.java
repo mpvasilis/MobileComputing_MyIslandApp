@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -24,6 +26,7 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -35,9 +38,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import vasilis.myislandapp.adapter.AdapterImageList;
 import vasilis.myislandapp.api.RestAdapter;
+import vasilis.myislandapp.api.callbacks.CallbackBeachRating;
 import vasilis.myislandapp.api.callbacks.CallbackPlaceDetails;
 import vasilis.myislandapp.data.DatabaseHandler;
 import vasilis.myislandapp.data.SharedPref;
@@ -58,10 +63,12 @@ public class ActivityPlaceDetail extends AppCompatActivity {
     private boolean onProcess = false;
     private boolean isFromNotif = false;
     private Call<CallbackPlaceDetails> callback;
+    private Call<CallbackBeachRating> callbackBeachRating;
     private View lyt_progress;
     private View lyt_distance;
     private float distance = -1;
     private Snackbar snackbar;
+    private String deviceID;
 
     public static void navigate(AppCompatActivity activity, View sharedView, Place p) {
         Intent intent = new Intent(activity, ActivityPlaceDetail.class);
@@ -102,7 +109,9 @@ public class ActivityPlaceDetail extends AppCompatActivity {
         distance = place.distance;
         setupToolbar(place.name);
         initMap();
+        loadMore();
 
+        deviceID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
         Tools.systemBarLolipop(this);
 
@@ -273,6 +282,60 @@ public class ActivityPlaceDetail extends AppCompatActivity {
             }
         });
     }
+
+
+    private void loadMore() {
+        findViewById(R.id.bt_loadMore).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        findViewById(R.id.bt_loadMoreImages).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        if (place.category == 4) {
+            final RatingBar ratingBar = findViewById(R.id.ratingBar);
+
+            findViewById(R.id.bt_sendRating).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int rating = ratingBar.getNumStars();
+                    ratingBar.setIsIndicator(true);
+
+                    callbackBeachRating = RestAdapter.createAPI().rateBeach(place.id, rating, deviceID);
+                    callbackBeachRating.enqueue(new Callback<CallbackBeachRating>() {
+                        @Override
+                        public void onResponse(Call<CallbackBeachRating> call, Response<CallbackBeachRating> response) {
+                            CallbackBeachRating resp = response.body();
+                            if (resp != null) {
+
+                            } else {
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<CallbackBeachRating> call, Throwable t) {
+                            if (call != null && !call.isCanceled()) {
+                                Log.e("onFailure", t.getMessage());
+                                boolean conn = Tools.cekConnection(getApplicationContext());
+                                if (conn) {
+
+                                } else {
+
+                                }
+                            }
+                        }
+
+                    });
+                }
+            });
+        }
+    }
+
 
     private void openPlaceInMap() {
         Intent intent = new Intent(ActivityPlaceDetail.this, ActivityMaps.class);
