@@ -80,7 +80,13 @@ public class ActivityPlaceDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_place_details);
+        place = (Place) getIntent().getSerializableExtra(EXTRA_OBJ);
+        if (place.category != 4) {
+            setContentView(R.layout.activity_place_details);
+        } else {
+            setContentView(R.layout.activity_place_details_beach);
+
+        }
         parent_view = findViewById(android.R.id.content);
 
         if (!imgloader.isInited()) Tools.initImageLoader(this);
@@ -88,7 +94,6 @@ public class ActivityPlaceDetail extends AppCompatActivity {
         db = new DatabaseHandler(this);
         ViewCompat.setTransitionName(findViewById(R.id.app_bar_layout), EXTRA_OBJ);
 
-        place = (Place) getIntent().getSerializableExtra(EXTRA_OBJ);
         isFromNotif = getIntent().getBooleanExtra(EXTRA_NOTIF_FLAG, false);
 
         lyt_progress = findViewById(R.id.lyt_progress);
