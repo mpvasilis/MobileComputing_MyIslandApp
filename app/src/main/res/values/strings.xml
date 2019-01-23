@@ -42,6 +42,9 @@
     <string name="map_navigate">ΟΔΗΓΙΕΣ</string>
     <string name="loadMore">Φόρτωση περισσοτερων</string>
 
+    <string name="rateBeach">Βαθμολογία</string>
+    <string name="sendRating">ΒΑΘΜΟΛΟΓΙΣΕ</string>
+
 
     <string name="hint_search">Αναζήτηση Παραλίας</string>
     <string name="please_fill">Γράψτε κάτι...</string>
