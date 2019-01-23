@@ -1,6 +1,5 @@
 package vasilis.myislandapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -26,6 +24,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import vasilis.myislandapp.data.DatabaseHandler;
 import vasilis.myislandapp.data.SharedPref;
 import vasilis.myislandapp.fragment.FragmentCategory;
+import vasilis.myislandapp.utils.PermissionUtil;
 import vasilis.myislandapp.utils.Tools;
 
 public class ActivityMain extends AppCompatActivity {
@@ -60,6 +59,13 @@ public class ActivityMain extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         activityMain = this;
 
+        if (Tools.needRequestPermission()) {
+            String[] permission = PermissionUtil.getDeniedPermission(this);
+            if (permission.length != 0) {
+                requestPermissions(permission, 200);
+            }
+        }
+
         if (!imgloader.isInited()) Tools.initImageLoader(this);
         fab = findViewById(R.id.fab);
         db = new DatabaseHandler(this);
@@ -70,7 +76,6 @@ public class ActivityMain extends AppCompatActivity {
         prepareImageLoader();
         cat = getResources().getIntArray(R.array.id_category);
 
-        // first drawer view
         onItemSelected(R.id.nav_all, getString(R.string.title_nav_all));
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +86,6 @@ public class ActivityMain extends AppCompatActivity {
             }
         });
 
-        // for system bar in lollipop
         Tools.systemBarLolipop(this);
     }
 
@@ -199,13 +203,6 @@ public class ActivityMain extends AppCompatActivity {
         return true;
     }
 
-    private void hideKeyboard() {
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
 
     public void doExitApp() {
         if ((System.currentTimeMillis() - exitTime) > 2000) {

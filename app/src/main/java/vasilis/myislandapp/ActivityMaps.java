@@ -186,7 +186,7 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
                         cat_id = -1;
                         break;
 
-                    case R.id.nav_tour:
+                    case R.id.nav_sights:
                         cat_id = cat[0];
                         break;
                     case R.id.nav_food:
@@ -195,7 +195,7 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
                     case R.id.nav_hotels:
                         cat_id = cat[2];
                         break;
-                    case R.id.nav_ent:
+                    case R.id.nav_beaches:
                         cat_id = cat[3];
                         break;
 

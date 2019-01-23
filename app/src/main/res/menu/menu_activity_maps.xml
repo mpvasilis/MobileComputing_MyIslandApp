@@ -14,7 +14,7 @@
                 app:showAsAction="never" />
 
             <item
-                android:id="@+id/nav_tour"
+                android:id="@+id/nav_sights"
                 android:title="@string/title_nav_tour"
                 app:showAsAction="never" />
             <item
@@ -26,7 +26,7 @@
                 android:title="@string/title_nav_hotels"
                 app:showAsAction="never" />
             <item
-                android:id="@+id/nav_ent"
+                android:id="@+id/nav_beaches"
                 android:title="@string/title_nav_ent"
                 app:showAsAction="never" />
 

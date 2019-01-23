@@ -17,7 +17,7 @@
     </string-array>
 
     <integer-array name="category_icon">
-        <item>@drawable/ic_nav_tour</item>
+        <item>@drawable/ic_nav_sights</item>
         <item>@drawable/ic_nav_food</item>
         <item>@drawable/ic_nav_hotels</item>
         <item>@drawable/ic_nav_beach</item>
