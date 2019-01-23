@@ -10,19 +10,19 @@ import vasilis.myislandapp.R;
 public class SharedPref {
 
     public static final String REFRESH_PLACES = ".REFRESH_PLACES";
-    private static final int MAX_OPEN_COUNTER = 15;
     private static final String THEME_COLOR_KEY = ".THEME_COLOR_KEY";
     private static final String LAST_PLACE_PAGE = "LAST_PLACE_PAGE_KEY";
+
     private Context context;
     private SharedPreferences sharedPreferences;
     private SharedPreferences prefs;
+
 
     public SharedPref(Context context) {
         this.context = context;
         sharedPreferences = context.getSharedPreferences("MAIN_PREF", Context.MODE_PRIVATE);
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
-
 
     public boolean isRefreshPlaces() {
         return sharedPreferences.getBoolean(REFRESH_PLACES, false);

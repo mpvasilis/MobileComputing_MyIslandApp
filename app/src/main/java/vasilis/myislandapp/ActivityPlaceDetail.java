@@ -63,7 +63,6 @@ public class ActivityPlaceDetail extends AppCompatActivity {
     private float distance = -1;
     private Snackbar snackbar;
 
-    // give preparation animation activity transition
     public static void navigate(AppCompatActivity activity, View sharedView, Place p) {
         Intent intent = new Intent(activity, ActivityPlaceDetail.class);
         intent.putExtra(EXTRA_OBJ, p);
@@ -87,7 +86,6 @@ public class ActivityPlaceDetail extends AppCompatActivity {
         if (!imgloader.isInited()) Tools.initImageLoader(this);
 
         db = new DatabaseHandler(this);
-        // animation transition
         ViewCompat.setTransitionName(findViewById(R.id.app_bar_layout), EXTRA_OBJ);
 
         place = (Place) getIntent().getSerializableExtra(EXTRA_OBJ);
@@ -144,7 +142,6 @@ public class ActivityPlaceDetail extends AppCompatActivity {
         super.onResume();
     }
 
-    // this method name same with android:onClick="clickLayout" at layout xml
     public void clickLayout(View view) {
         switch (view.getId()) {
             case R.id.lyt_address:
@@ -172,7 +169,6 @@ public class ActivityPlaceDetail extends AppCompatActivity {
     }
 
     private void setImageGallery(List<Images> images) {
-        // add optional image into list
         List<Images> new_images = new ArrayList<>();
         final ArrayList<String> new_images_str = new ArrayList<>();
         new_images.add(new Images(place.id, place.image));
@@ -304,7 +300,6 @@ public class ActivityPlaceDetail extends AppCompatActivity {
         finish();
     }
 
-    // places detail load with lazy scheme
     private void loadPlaceData() {
         place = db.getPlace(place.id);
         if (place.isDraft()) {

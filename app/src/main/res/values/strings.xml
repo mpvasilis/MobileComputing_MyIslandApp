@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">My Island App</string>
 
-    <string name="city_name">My Island App</string>
-    <string name="city_address">Kozani, Greece</string>
+    <string name="main_title">My Island App</string>
+    <string name="subtitle">Kozani, Greece</string>
     <string name="about_text">Πληροφορίες σχετικά με το νισί. Αξιοθέατα, εστίαση, διαμονή και παραλίες.</string>
 
     <string name="api_key">AIzaSyCQFy8xIavDsIgatGXrYcTcmNKEbuBXrXI</string>

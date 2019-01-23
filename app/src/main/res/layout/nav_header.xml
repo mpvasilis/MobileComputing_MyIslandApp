@@ -69,7 +69,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/spacing_small"
-                        android:text="@string/city_name"
+                        android:text="@string/main_title"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@android:color/white"
                         android:textStyle="bold" />
@@ -78,7 +78,7 @@
                         android:id="@+id/textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/city_address"
+                        android:text="@string/subtitle"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@android:color/white" />
                 </LinearLayout>

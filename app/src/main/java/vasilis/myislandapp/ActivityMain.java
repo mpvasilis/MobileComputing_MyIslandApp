@@ -162,7 +162,7 @@ public class ActivityMain extends AppCompatActivity {
                 actionBar.setTitle(title);
                 break;
 
-            case R.id.nav_tour:
+            case R.id.nav_sights:
                 fragment = new FragmentCategory();
                 bundle.putInt(FragmentCategory.TAG_CATEGORY, cat[0]);
                 actionBar.setTitle(title);
@@ -177,7 +177,7 @@ public class ActivityMain extends AppCompatActivity {
                 bundle.putInt(FragmentCategory.TAG_CATEGORY, cat[2]);
                 actionBar.setTitle(title);
                 break;
-            case R.id.nav_ent:
+            case R.id.nav_beaches:
                 fragment = new FragmentCategory();
                 bundle.putInt(FragmentCategory.TAG_CATEGORY, cat[3]);
                 actionBar.setTitle(title);
