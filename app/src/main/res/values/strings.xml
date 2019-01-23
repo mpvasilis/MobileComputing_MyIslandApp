@@ -40,6 +40,8 @@
     <string name="map_title">Χάρτης</string>
     <string name="map_view">ΠΡΟΒΟΛΗ</string>
     <string name="map_navigate">ΟΔΗΓΙΕΣ</string>
+    <string name="loadMore">Φόρτωση περισσοτερων</string>
+
 
     <string name="hint_search">Αναζήτηση Παραλίας</string>
     <string name="please_fill">Γράψτε κάτι...</string>

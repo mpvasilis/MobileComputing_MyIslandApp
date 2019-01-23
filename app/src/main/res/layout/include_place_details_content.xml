@@ -169,7 +169,26 @@
                 android:layout_height="97dp"
                 android:paddingLeft="@dimen/spacing_large"
                 android:paddingRight="@dimen/spacing_large"
-                android:paddingBottom="@dimen/spacing_large" />
+                android:paddingBottom="@dimen/spacing_large">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:id="@+id/the_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/spacing_large"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt_loadMoreImages"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loadMore"
+                    android:textColor="@color/colorAccent" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -231,6 +250,23 @@
                     android:layout_margin="@dimen/spacing_xsmall" />
 
             </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/the_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/spacing_large"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt_loadMore"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loadMore"
+                    android:textColor="@color/colorAccent" />
+            </LinearLayout>
 
         </LinearLayout>
 
