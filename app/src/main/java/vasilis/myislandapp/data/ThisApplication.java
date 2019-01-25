@@ -5,7 +5,7 @@ import android.location.Location;
 import android.provider.Settings;
 import android.util.Log;
 
-import vasilis.myislandapp.utils.Tools;
+import vasilis.myislandapp.utils.GPSLocation;
 
 public class ThisApplication extends Application {
 
@@ -20,7 +20,7 @@ public class ThisApplication extends Application {
         super.onCreate();
         Log.d("MyIslandApp", "onCreate : ThisApplication");
         mInstance = this;
-        Tools.initImageLoader(getApplicationContext());
+        GPSLocation.initImageLoader(getApplicationContext());
     }
 
     public Location getLocation() {

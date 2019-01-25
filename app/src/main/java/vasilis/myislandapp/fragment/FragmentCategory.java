@@ -31,13 +31,13 @@ import vasilis.myislandapp.ActivitySearch;
 import vasilis.myislandapp.R;
 import vasilis.myislandapp.adapter.AdapterPlaceGrid;
 import vasilis.myislandapp.api.RestAdapter;
-import vasilis.myislandapp.api.callbacks.CallbackListPlace;
+import vasilis.myislandapp.api.callbacks.CallBackListPlace;
 import vasilis.myislandapp.data.DatabaseHandler;
 import vasilis.myislandapp.data.SharedPref;
 import vasilis.myislandapp.data.ThisApplication;
 import vasilis.myislandapp.model.Place;
+import vasilis.myislandapp.utils.GPSLocation;
 import vasilis.myislandapp.utils.SpacingItemDecoration;
-import vasilis.myislandapp.utils.Tools;
 
 public class FragmentCategory extends Fragment {
 
@@ -57,7 +57,7 @@ public class FragmentCategory extends Fragment {
     private SharedPref sharedPref;
     private AdapterPlaceGrid adapter;
 
-    private Call<CallbackListPlace> callback;
+    private Call<CallBackListPlace> callback;
     private boolean onProcess = false;
     private boolean dialogopend = false;
 
@@ -78,8 +78,8 @@ public class FragmentCategory extends Fragment {
         lyt_not_found = root_view.findViewById(R.id.lyt_not_found);
         text_progress = root_view.findViewById(R.id.text_progress);
 
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(Tools.getGridSpanCount(getActivity()), StaggeredGridLayoutManager.VERTICAL));
-        recyclerView.addItemDecoration(new SpacingItemDecoration(Tools.getGridSpanCount(getActivity()), Tools.dpToPx(getActivity(), 4), true));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(GPSLocation.getGridSpanCount(getActivity()), StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.addItemDecoration(new SpacingItemDecoration(GPSLocation.getGridSpanCount(getActivity()), GPSLocation.dpToPx(getActivity(), 4), true));
 
         //set data and list adapter
         adapter = new AdapterPlaceGrid(getActivity(), recyclerView, new ArrayList<Place>());
@@ -252,7 +252,7 @@ public class FragmentCategory extends Fragment {
 
     // checking some condition before perform refresh data
     private void actionRefresh(int page_no) {
-        boolean conn = Tools.cekConnection(getActivity());
+        boolean conn = GPSLocation.cekConnection(getActivity());
         if (conn) {
             if (!onProcess) {
                 onRefresh(page_no);
@@ -268,10 +268,10 @@ public class FragmentCategory extends Fragment {
         onProcess = true;
         showProgress(onProcess);
         callback = RestAdapter.createAPI().getPlacesByPage(page_no, 50);
-        callback.enqueue(new retrofit2.Callback<CallbackListPlace>() {
+        callback.enqueue(new retrofit2.Callback<CallBackListPlace>() {
             @Override
-            public void onResponse(Call<CallbackListPlace> call, Response<CallbackListPlace> response) {
-                CallbackListPlace resp = response.body();
+            public void onResponse(Call<CallBackListPlace> call, Response<CallBackListPlace> response) {
+                CallBackListPlace resp = response.body();
                 if (resp != null) {
                     count_total = resp.count_total;
                     if (page_no == 1) db.refreshTablePlace();
@@ -286,10 +286,10 @@ public class FragmentCategory extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<CallbackListPlace> call, Throwable t) {
+            public void onFailure(Call<CallBackListPlace> call, Throwable t) {
                 if (call != null && !call.isCanceled()) {
                     Log.e("onFailure", t.getMessage());
-                    boolean conn = Tools.cekConnection(getActivity());
+                    boolean conn = GPSLocation.cekConnection(getActivity());
                     if (conn) {
                         onFailureRetry(page_no, getString(R.string.refresh_failed));
                     } else {

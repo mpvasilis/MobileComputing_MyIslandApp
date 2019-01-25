@@ -20,7 +20,7 @@ import java.util.List;
 import vasilis.myislandapp.R;
 import vasilis.myislandapp.api.RestAdapter;
 import vasilis.myislandapp.model.Place;
-import vasilis.myislandapp.utils.Tools;
+import vasilis.myislandapp.utils.GPSLocation;
 
 public class AdapterPlaceGrid extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -42,7 +42,7 @@ public class AdapterPlaceGrid extends RecyclerView.Adapter<RecyclerView.ViewHold
     public AdapterPlaceGrid(Context ctx, RecyclerView view, List<Place> items) {
         this.ctx = ctx;
         this.items = items;
-        if (!imgloader.isInited()) Tools.initImageLoader(ctx);
+        if (!imgloader.isInited()) GPSLocation.initImageLoader(ctx);
         lastItemViewDetector(view);
     }
 
@@ -69,13 +69,13 @@ public class AdapterPlaceGrid extends RecyclerView.Adapter<RecyclerView.ViewHold
             ViewHolder vItem = (ViewHolder) holder;
             final Place p = items.get(position);
             vItem.title.setText(p.name);
-            imgloader.displayImage(RestAdapter.getURLimgPlace(p.image), vItem.image, Tools.getGridOption());
+            imgloader.displayImage(RestAdapter.getURLimgPlace(p.image), vItem.image, GPSLocation.getGridOption());
 
             if (p.distance == -1) {
                 vItem.lyt_distance.setVisibility(View.GONE);
             } else {
                 vItem.lyt_distance.setVisibility(View.VISIBLE);
-                vItem.distance.setText(Tools.getFormatedDistance(p.distance));
+                vItem.distance.setText(GPSLocation.getFormatedDistance(p.distance));
             }
 
             vItem.lyt_parent.setOnClickListener(new View.OnClickListener() {

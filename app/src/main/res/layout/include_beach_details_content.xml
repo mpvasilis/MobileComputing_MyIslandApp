@@ -109,7 +109,7 @@
             <LinearLayout
                 android:id="@+id/lyt_website"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:gravity="center_vertical"
@@ -126,6 +126,34 @@
 
                 <TextView
                     android:id="@+id/website"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacing_medium"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/material_grey_800" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyt_rating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/spacing_xxlarge"
+                android:onClick="clickLayout"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/spacing_mlarge"
+                    android:layout_height="@dimen/spacing_mlarge"
+                    android:layout_margin="@dimen/spacing_middle"
+                    android:src="@android:drawable/btn_star"
+                    android:tint="@color/grey_hard" />
+
+                <TextView
+                    android:id="@+id/rating"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_medium"

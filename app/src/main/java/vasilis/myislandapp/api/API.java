@@ -5,8 +5,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
-import vasilis.myislandapp.api.callbacks.CallbackBeachRating;
-import vasilis.myislandapp.api.callbacks.CallbackListPlace;
+import vasilis.myislandapp.api.callbacks.CallBackBeachRating;
+import vasilis.myislandapp.api.callbacks.CallBackListPlace;
+import vasilis.myislandapp.api.callbacks.CallBackLoadMore;
+import vasilis.myislandapp.api.callbacks.CallBackLoadMoreImages;
 import vasilis.myislandapp.api.callbacks.CallbackPlaceDetails;
 
 public interface API {
@@ -16,7 +18,7 @@ public interface API {
 
     @Headers({CACHE, AGENT})
     @GET("places")
-    Call<CallbackListPlace> getPlacesByPage(
+    Call<CallBackListPlace> getPlacesByPage(
             @Query("page") int page,
             @Query("count") int count
     );
@@ -29,25 +31,25 @@ public interface API {
 
     @Headers({CACHE, AGENT})
     @GET("loadMore")
-    Call<CallbackPlaceDetails> loadMore(
+    Call<CallBackLoadMore> loadMore(
             @Query("id") int place_id
     );
 
     @Headers({CACHE, AGENT})
     @GET("loadMoreImages")
-    Call<CallbackPlaceDetails> loadMoreImages(
+    Call<CallBackLoadMoreImages> loadMoreImages(
             @Query("id") int place_id
     );
 
     @Headers({CACHE, AGENT})
     @GET("getBeachOverallRating")
-    Call<CallbackPlaceDetails> getBeachOverallRating(
+    Call<CallBackBeachRating> getBeachOverallRating(
             @Query("id") int place_id
     );
 
     @Headers({CACHE, AGENT})
     @POST("rateBeach")
-    Call<CallbackBeachRating> rateBeach(
+    Call<CallBackBeachRating> rateBeach(
             @Query("id") int place_id,
             @Query("rating") int rating,
             @Query("deviceID") String deviceID

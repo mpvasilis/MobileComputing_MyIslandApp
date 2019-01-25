@@ -31,8 +31,8 @@ import vasilis.myislandapp.adapter.AdapterPlaceGrid;
 import vasilis.myislandapp.adapter.AdapterSuggestionSearch;
 import vasilis.myislandapp.data.DatabaseHandler;
 import vasilis.myislandapp.model.Place;
+import vasilis.myislandapp.utils.GPSLocation;
 import vasilis.myislandapp.utils.SpacingItemDecoration;
-import vasilis.myislandapp.utils.Tools;
 
 public class ActivitySearch extends AppCompatActivity {
 
@@ -87,8 +87,8 @@ public class ActivitySearch extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerSuggestion = findViewById(R.id.recyclerSuggestion);
 
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(Tools.getGridSpanCount(this), StaggeredGridLayoutManager.VERTICAL));
-        recyclerView.addItemDecoration(new SpacingItemDecoration(Tools.getGridSpanCount(this), Tools.dpToPx(this, 4), true));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(GPSLocation.getGridSpanCount(this), StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.addItemDecoration(new SpacingItemDecoration(GPSLocation.getGridSpanCount(this), GPSLocation.dpToPx(this, 4), true));
 
 
         recyclerSuggestion.setLayoutManager(new LinearLayoutManager(this));
@@ -200,7 +200,7 @@ public class ActivitySearch extends AppCompatActivity {
         if (!query.equals("")) {
             mAdapterSuggestion.addSearchHistory(query);
             mAdapter.resetListData();
-            mAdapter.insertData(Tools.filterItemsWithDistance(this, db.searchBeaches(query)));
+            mAdapter.insertData(GPSLocation.filterItemsWithDistance(this, db.searchBeaches(query)));
             showNotFoundView();
         } else {
             Toast.makeText(this, R.string.please_fill, Toast.LENGTH_SHORT).show();

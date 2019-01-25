@@ -35,8 +35,8 @@ import java.util.List;
 import vasilis.myislandapp.data.DatabaseHandler;
 import vasilis.myislandapp.model.Category;
 import vasilis.myislandapp.model.Place;
+import vasilis.myislandapp.utils.GPSLocation;
 import vasilis.myislandapp.utils.PermissionUtil;
-import vasilis.myislandapp.utils.Tools;
 
 public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -80,17 +80,17 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
         cat = getResources().getIntArray(R.array.id_category);
 
         // for system bar in lollipop
-        Tools.systemBarLolipop(this);
+        GPSLocation.systemBarLolipop(this);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = Tools.configActivityMaps(googleMap);
+        mMap = GPSLocation.configActivityMaps(googleMap);
         CameraUpdate location;
         if (isSinglePlace) {
             marker_bg.setColorFilter(getResources().getColor(R.color.marker_secondary));
             MarkerOptions markerOptions = new MarkerOptions().title(ext_place.name).position(ext_place.getPosition());
-            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Tools.createBitmapFromView(ActivityMaps.this, marker_view)));
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(GPSLocation.createBitmapFromView(ActivityMaps.this, marker_view)));
             mMap.addMarker(markerOptions);
             location = CameraUpdateFactory.newLatLngZoom(ext_place.getPosition(), 12);
             actionBar.setTitle(ext_place.name);
@@ -132,7 +132,7 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
                         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                             showAlertDialogGps();
                         } else {
-                            Location loc = Tools.getLastKnownLocation(ActivityMaps.this);
+                            Location loc = GPSLocation.getLastKnownLocation(ActivityMaps.this);
                             CameraUpdate myCam = CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 12);
                             mMap.animateCamera(myCam);
                         }
@@ -156,7 +156,7 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setTitle(R.string.activity_title_maps);
-        Tools.setActionBarColor(this, actionBar);
+        GPSLocation.setActionBarColor(this, actionBar);
     }
 
     private void initMapFragment() {
@@ -255,7 +255,7 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
             }
             marker_bg.setColorFilter(getResources().getColor(R.color.marker_primary));
             markerOptions.title(item.name);
-            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Tools.createBitmapFromView(ActivityMaps.this, marker_view)));
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(GPSLocation.createBitmapFromView(ActivityMaps.this, marker_view)));
             if (ext_place != null && ext_place.id == item.id) {
                 markerOptions.visible(false);
             }

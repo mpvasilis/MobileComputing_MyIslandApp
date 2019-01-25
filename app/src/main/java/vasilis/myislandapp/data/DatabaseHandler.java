@@ -21,7 +21,7 @@ import vasilis.myislandapp.R;
 import vasilis.myislandapp.model.Category;
 import vasilis.myislandapp.model.Images;
 import vasilis.myislandapp.model.Place;
-import vasilis.myislandapp.utils.Tools;
+import vasilis.myislandapp.utils.GPSLocation;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -161,7 +161,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Insert List place
     public void insertListPlace(List<Place> modelList) {
-        modelList = Tools.itemsWithDistance(context, modelList);
+        modelList = GPSLocation.itemsWithDistance(context, modelList);
         for (Place p : modelList) {
             ContentValues values = getPlaceValue(p);
             db.insertWithOnConflict(TABLE_PLACE, null, values, SQLiteDatabase.CONFLICT_REPLACE);

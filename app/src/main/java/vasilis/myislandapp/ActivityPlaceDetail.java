@@ -42,13 +42,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import vasilis.myislandapp.adapter.AdapterImageList;
 import vasilis.myislandapp.api.RestAdapter;
-import vasilis.myislandapp.api.callbacks.CallbackBeachRating;
+import vasilis.myislandapp.api.callbacks.CallBackBeachRating;
 import vasilis.myislandapp.api.callbacks.CallbackPlaceDetails;
 import vasilis.myislandapp.data.DatabaseHandler;
 import vasilis.myislandapp.data.SharedPref;
 import vasilis.myislandapp.model.Images;
 import vasilis.myislandapp.model.Place;
-import vasilis.myislandapp.utils.Tools;
+import vasilis.myislandapp.utils.GPSLocation;
 
 public class ActivityPlaceDetail extends AppCompatActivity {
 
@@ -63,7 +63,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
     private boolean onProcess = false;
     private boolean isFromNotif = false;
     private Call<CallbackPlaceDetails> callback;
-    private Call<CallbackBeachRating> callbackBeachRating;
+    private Call<CallBackBeachRating> callbackBeachRating;
     private View lyt_progress;
     private View lyt_distance;
     private float distance = -1;
@@ -96,7 +96,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
         }
         parent_view = findViewById(android.R.id.content);
 
-        if (!imgloader.isInited()) Tools.initImageLoader(this);
+        if (!imgloader.isInited()) GPSLocation.initImageLoader(this);
 
         db = new DatabaseHandler(this);
         ViewCompat.setTransitionName(findViewById(R.id.app_bar_layout), EXTRA_OBJ);
@@ -113,7 +113,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
 
         deviceID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
-        Tools.systemBarLolipop(this);
+        GPSLocation.systemBarLolipop(this);
 
     }
 
@@ -142,7 +142,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
             lyt_distance.setVisibility(View.GONE);
         } else {
             lyt_distance.setVisibility(View.VISIBLE);
-            ((TextView) findViewById(R.id.distance)).setText(Tools.getFormatedDistance(distance));
+            ((TextView) findViewById(R.id.distance)).setText(GPSLocation.getFormatedDistance(distance));
         }
 
         setImageGallery(db.getListImageByPlaceId(p.id));
@@ -150,7 +150,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        if (!imgloader.isInited()) Tools.initImageLoader(getApplicationContext());
+        if (!imgloader.isInited()) GPSLocation.initImageLoader(getApplicationContext());
         loadPlaceData();
         if (description != null) description.onResume();
         super.onResume();
@@ -167,14 +167,14 @@ public class ActivityPlaceDetail extends AppCompatActivity {
                 break;
             case R.id.lyt_phone:
                 if (!place.isDraft() && !place.phone.equals("-") && !place.phone.trim().equals("")) {
-                    Tools.dialNumber(this, place.phone);
+                    GPSLocation.dialNumber(this, place.phone);
                 } else {
                     Snackbar.make(parent_view, R.string.fail_dial_number, Snackbar.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.lyt_website:
                 if (!place.isDraft() && !place.website.equals("-") && !place.website.trim().equals("")) {
-                    Tools.directUrl(this, place.website);
+                    GPSLocation.directUrl(this, place.website);
                 } else {
                     Snackbar.make(parent_view, R.string.fail_open_website, Snackbar.LENGTH_SHORT).show();
                 }
@@ -256,7 +256,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
                         Snackbar.make(parent_view, R.string.unable_create_map, Snackbar.LENGTH_SHORT).show();
                     } else {
                         // config map
-                        googleMap = Tools.configStaticMap(ActivityPlaceDetail.this, googleMap, place);
+                        googleMap = GPSLocation.configStaticMap(ActivityPlaceDetail.this, googleMap, place);
                     }
                 }
             });
@@ -307,10 +307,10 @@ public class ActivityPlaceDetail extends AppCompatActivity {
                     ratingBar.setIsIndicator(true);
 
                     callbackBeachRating = RestAdapter.createAPI().rateBeach(place.id, rating, deviceID);
-                    callbackBeachRating.enqueue(new Callback<CallbackBeachRating>() {
+                    callbackBeachRating.enqueue(new Callback<CallBackBeachRating>() {
                         @Override
-                        public void onResponse(Call<CallbackBeachRating> call, Response<CallbackBeachRating> response) {
-                            CallbackBeachRating resp = response.body();
+                        public void onResponse(Call<CallBackBeachRating> call, Response<CallBackBeachRating> response) {
+                            CallBackBeachRating resp = response.body();
                             if (resp != null) {
 
                             } else {
@@ -318,10 +318,10 @@ public class ActivityPlaceDetail extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<CallbackBeachRating> call, Throwable t) {
+                        public void onFailure(Call<CallBackBeachRating> call, Throwable t) {
                             if (call != null && !call.isCanceled()) {
                                 Log.e("onFailure", t.getMessage());
-                                boolean conn = Tools.cekConnection(getApplicationContext());
+                                boolean conn = GPSLocation.cekConnection(getApplicationContext());
                                 if (conn) {
 
                                 } else {
@@ -371,7 +371,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
     private void loadPlaceData() {
         place = db.getPlace(place.id);
         if (place.isDraft()) {
-            if (Tools.cekConnection(this)) {
+            if (GPSLocation.cekConnection(this)) {
                 requestDetailsPlace(place.id);
             } else {
                 onFailureRetry(getString(R.string.no_internet));
@@ -405,7 +405,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
             @Override
             public void onFailure(Call<CallbackPlaceDetails> call, Throwable t) {
                 if (call != null && !call.isCanceled()) {
-                    boolean conn = Tools.cekConnection(ActivityPlaceDetail.this);
+                    boolean conn = GPSLocation.cekConnection(ActivityPlaceDetail.this);
                     if (conn) {
                         onFailureRetry(getString(R.string.failed_load_details));
                     } else {

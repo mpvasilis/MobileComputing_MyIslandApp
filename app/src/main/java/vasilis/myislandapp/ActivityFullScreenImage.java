@@ -12,7 +12,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
 
 import vasilis.myislandapp.adapter.AdapterFullScreenImage;
-import vasilis.myislandapp.utils.Tools;
+import vasilis.myislandapp.utils.GPSLocation;
 
 public class ActivityFullScreenImage extends AppCompatActivity {
 
@@ -29,7 +29,7 @@ public class ActivityFullScreenImage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_screen_image);
 
-        if (!imgloader.isInited()) Tools.initImageLoader(this);
+        if (!imgloader.isInited()) GPSLocation.initImageLoader(this);
         viewPager = findViewById(R.id.pager);
         text_page = findViewById(R.id.text_page);
 
@@ -69,12 +69,12 @@ public class ActivityFullScreenImage extends AppCompatActivity {
             }
         });
 
-        Tools.systemBarLolipop(this);
+        GPSLocation.systemBarLolipop(this);
     }
 
     @Override
     protected void onResume() {
-        if (!imgloader.isInited()) Tools.initImageLoader(this);
+        if (!imgloader.isInited()) GPSLocation.initImageLoader(this);
         super.onResume();
     }
 

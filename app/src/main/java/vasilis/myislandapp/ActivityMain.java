@@ -24,8 +24,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import vasilis.myislandapp.data.DatabaseHandler;
 import vasilis.myislandapp.data.SharedPref;
 import vasilis.myislandapp.fragment.FragmentCategory;
+import vasilis.myislandapp.utils.GPSLocation;
 import vasilis.myislandapp.utils.PermissionUtil;
-import vasilis.myislandapp.utils.Tools;
 
 public class ActivityMain extends AppCompatActivity {
 
@@ -59,14 +59,14 @@ public class ActivityMain extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         activityMain = this;
 
-        if (Tools.needRequestPermission()) {
+        if (GPSLocation.needRequestPermission()) {
             String[] permission = PermissionUtil.getDeniedPermission(this);
             if (permission.length != 0) {
                 requestPermissions(permission, 200);
             }
         }
 
-        if (!imgloader.isInited()) Tools.initImageLoader(this);
+        if (!imgloader.isInited()) GPSLocation.initImageLoader(this);
         fab = findViewById(R.id.fab);
         db = new DatabaseHandler(this);
         sharedPref = new SharedPref(this);
@@ -86,7 +86,7 @@ public class ActivityMain extends AppCompatActivity {
             }
         });
 
-        Tools.systemBarLolipop(this);
+        GPSLocation.systemBarLolipop(this);
     }
 
     private void initToolbar() {
@@ -95,7 +95,7 @@ public class ActivityMain extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        Tools.setActionBarColor(this, actionBar);
+        GPSLocation.setActionBarColor(this, actionBar);
     }
 
     private void initDrawerMenu() {
@@ -119,7 +119,7 @@ public class ActivityMain extends AppCompatActivity {
 
         View nav_header = navigationView.getHeaderView(0);
         nav_header_lyt = nav_header.findViewById(R.id.nav_header_lyt);
-        nav_header_lyt.setBackgroundColor(Tools.colorBrighter(sharedPref.getThemeColorInt()));
+        nav_header_lyt.setBackgroundColor(GPSLocation.colorBrighter(sharedPref.getThemeColorInt()));
 
         (nav_header.findViewById(R.id.menu_nav_map)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +150,7 @@ public class ActivityMain extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_about) {
-            Tools.aboutAction(ActivityMain.this);
+            GPSLocation.aboutAction(ActivityMain.this);
         }
 
         return super.onOptionsItemSelected(item);
@@ -214,18 +214,18 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private void prepareImageLoader() {
-        Tools.initImageLoader(this);
+        GPSLocation.initImageLoader(this);
     }
 
     @Override
     protected void onResume() {
-        if (!imgloader.isInited()) Tools.initImageLoader(this);
+        if (!imgloader.isInited()) GPSLocation.initImageLoader(this);
         if (actionBar != null) {
-            Tools.setActionBarColor(this, actionBar);
-            Tools.systemBarLolipop(this);
+            GPSLocation.setActionBarColor(this, actionBar);
+            GPSLocation.systemBarLolipop(this);
         }
         if (nav_header_lyt != null) {
-            nav_header_lyt.setBackgroundColor(Tools.colorBrighter(sharedPref.getThemeColorInt()));
+            nav_header_lyt.setBackgroundColor(GPSLocation.colorBrighter(sharedPref.getThemeColorInt()));
         }
         super.onResume();
     }

@@ -49,7 +49,7 @@ import vasilis.myislandapp.data.SharedPref;
 import vasilis.myislandapp.data.ThisApplication;
 import vasilis.myislandapp.model.Place;
 
-public class Tools {
+public class GPSLocation {
 
     public static boolean needRequestPermission() {
         return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
@@ -64,7 +64,7 @@ public class Tools {
             Window window = act.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //window.setStatusBarColor(Tools.colorDarker(new SharedPref(act).getThemeColorInt()));
+            //window.setStatusBarColor(GPSLocation.colorDarker(new SharedPref(act).getThemeColorInt()));
         }
     }
 
@@ -146,7 +146,7 @@ public class Tools {
 
         CameraPosition cameraPosition = new CameraPosition.Builder().target(place.getPosition()).zoom(12).build();
         MarkerOptions markerOptions = new MarkerOptions().position(place.getPosition());
-        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Tools.createBitmapFromView(act, marker_view)));
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(GPSLocation.createBitmapFromView(act, marker_view)));
         googleMap.addMarker(markerOptions);
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         return googleMap;
@@ -249,18 +249,18 @@ public class Tools {
     }
 
     public static List<Place> filterItemsWithDistance(Activity act, List<Place> items) {
-        LatLng curLoc = Tools.getCurLocation(act);
+        LatLng curLoc = GPSLocation.getCurLocation(act);
         if (curLoc != null) {
-            return Tools.getSortedDistanceList(items, curLoc);
+            return GPSLocation.getSortedDistanceList(items, curLoc);
         }
 
         return items;
     }
 
     public static List<Place> itemsWithDistance(Context ctx, List<Place> items) {
-        LatLng curLoc = Tools.getCurLocation(ctx);
+        LatLng curLoc = GPSLocation.getCurLocation(ctx);
         if (curLoc != null) {
-            return Tools.getDistanceList(items, curLoc);
+            return GPSLocation.getDistanceList(items, curLoc);
         }
         return items;
     }
@@ -313,7 +313,7 @@ public class Tools {
 
     public static Location getLastKnownLocation(Context ctx) {
         LocationManager mLocationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
-        LocationListener locationListener = Tools.requestLocationUpdate(mLocationManager);
+        LocationListener locationListener = GPSLocation.requestLocationUpdate(mLocationManager);
         List<String> providers = mLocationManager.getProviders(true);
         Location bestLocation = null;
         for (String provider : providers) {

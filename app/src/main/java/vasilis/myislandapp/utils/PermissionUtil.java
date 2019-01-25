@@ -49,7 +49,7 @@ public abstract class PermissionUtil {
 
 
     public static boolean isGranted(Context ctx, String permission) {
-        if (!Tools.needRequestPermission()) return true;
+        if (!GPSLocation.needRequestPermission()) return true;
         return (ctx.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
     }
 

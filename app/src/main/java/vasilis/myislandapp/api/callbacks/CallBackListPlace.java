@@ -6,7 +6,7 @@ import java.util.List;
 
 import vasilis.myislandapp.model.Place;
 
-public class CallbackListPlace implements Serializable {
+public class CallBackListPlace implements Serializable {
 
     public int count_total = -1;
     public List<Place> places = new ArrayList<>();
