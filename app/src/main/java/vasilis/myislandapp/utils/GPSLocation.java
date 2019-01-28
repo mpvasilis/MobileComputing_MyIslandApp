@@ -79,13 +79,11 @@ public class GPSLocation {
                 .cacheOnDisk(true)
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .build();
-
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
                 .defaultDisplayImageOptions(options)
                 .threadPoolSize(3)
                 .memoryCache(new WeakMemoryCache())
                 .build();
-
         ImageLoader.getInstance().init(config);
     }
 

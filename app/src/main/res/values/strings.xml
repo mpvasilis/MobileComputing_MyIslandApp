@@ -52,9 +52,9 @@
     <string name="load_of">Φόρτωση %1$d από τα %2$d</string>
     <string name="load_success">Επιτυχής φόρτωση δεδομένων</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Ρυθμίσεις</string>
     <string name="no_internet">Δεν υπάρχει σύνδεση στο internet</string>
-    <string name="task_running">Task still running</string>
+    <string name="task_running">Το task τρέχει ήδη</string>
     <string name="no_item">Κανένα μέρος</string>
 
     <string name="OK">OK</string>
