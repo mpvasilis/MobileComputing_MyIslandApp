@@ -66,7 +66,6 @@ public class FragmentCategory extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root_view = inflater.inflate(R.layout.fragment_category, null);
 
-        // activate fragment menu
         setHasOptionsMenu(true);
 
         db = new DatabaseHandler(getActivity());
@@ -81,11 +80,9 @@ public class FragmentCategory extends Fragment {
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(GPSLocation.getGridSpanCount(getActivity()), StaggeredGridLayoutManager.VERTICAL));
         recyclerView.addItemDecoration(new SpacingItemDecoration(GPSLocation.getGridSpanCount(getActivity()), GPSLocation.dpToPx(getActivity(), 4), true));
 
-        //set data and list adapter
         adapter = new AdapterPlaceGrid(getActivity(), recyclerView, new ArrayList<Place>());
         recyclerView.setAdapter(adapter);
 
-        // on item list clicked
         adapter.setOnItemClickListener(new AdapterPlaceGrid.OnItemClickListener() {
             @Override
             public void onItemClick(View v, Place obj) {
@@ -225,7 +222,6 @@ public class FragmentCategory extends Fragment {
         adapter.insertData(items);
         showNoItemView();
         final int item_count = db.getPlacesSize(category_id);
-        // detect when scroll reach bottom
         adapter.setOnLoadMoreListener(new AdapterPlaceGrid.OnLoadMoreListener() {
             @Override
             public void onLoadMore(final int current_page) {
@@ -250,7 +246,6 @@ public class FragmentCategory extends Fragment {
         }, 500);
     }
 
-    // checking some condition before perform refresh data
     private void actionRefresh(int page_no) {
         boolean conn = GPSLocation.cekConnection(getActivity());
         if (conn) {
@@ -275,7 +270,7 @@ public class FragmentCategory extends Fragment {
                 if (resp != null) {
                     count_total = resp.count_total;
                     if (page_no == 1) db.refreshTablePlace();
-                    db.insertListPlace(resp.places);  // save result into database
+                    db.insertListPlace(resp.places);
                     sharedPref.setLastPlacePage(page_no + 1);
                     delayNextRequest(page_no);
                     String str_progress = String.format(getString(R.string.load_of), (page_no * 50), count_total);

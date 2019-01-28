@@ -67,7 +67,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cat_icon = context.getResources().obtainTypedArray(R.array.category_icon);
 
         if (getCategorySize() != cat_id.length) {
-            defineCategory(this.db);  // define table category
+            defineCategory(this.db);
         }
 
     }
@@ -118,25 +118,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     private void defineCategory(SQLiteDatabase db) {
-        db.execSQL("DELETE FROM " + TABLE_CATEGORY); // refresh table content
+        db.execSQL("DELETE FROM " + TABLE_CATEGORY);
         db.execSQL("VACUUM");
         for (int i = 0; i < cat_id.length; i++) {
             ContentValues values = new ContentValues();
             values.put(KEY_CAT_ID, cat_id[i]);
             values.put(KEY_CAT_NAME, cat_name[i]);
             values.put(KEY_CAT_ICON, cat_icon.getResourceId(i, 0));
-            db.insert(TABLE_CATEGORY, null, values); // Inserting Row
+            db.insert(TABLE_CATEGORY, null, values);
         }
     }
 
 
 
-    // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d("DB ", "onUpgrade " + oldVersion + " to " + newVersion);
         if (oldVersion < newVersion) {
-            // Drop older table if existed
             truncateDB(db);
         }
     }
@@ -146,11 +144,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_IMAGES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORY);
 
-        // Create tables again
         onCreate(db);
     }
 
-    // refresh table place and place_category
     public void refreshTablePlace() {
         db.execSQL("DELETE FROM " + TABLE_IMAGES);
         db.execSQL("VACUUM");
@@ -159,7 +155,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    // Insert List place
     public void insertListPlace(List<Place> modelList) {
         modelList = GPSLocation.itemsWithDistance(context, modelList);
         for (Place p : modelList) {
@@ -170,7 +165,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    // Update one place
     public Place updatePlace(Place place) {
         List<Place> objcs = new ArrayList<>();
         objcs.add(place);
@@ -275,10 +269,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private List<Place> getListPlaceByCursor(Cursor cur) {
         List<Place> locList = new ArrayList<>();
-        // looping through all rows and adding to list
         if (cur.moveToFirst()) {
             do {
-                // Adding place to list
                 locList.add(getPlaceByCursor(cur));
             } while (cur.moveToNext());
         }
@@ -304,7 +296,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    // Get LIst Images By Place Id
     public List<Images> getListImageByPlaceId(int place_id) {
         List<Images> imageList = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_IMAGES + " WHERE " + KEY_IMG_PLACE_ID + " = ?";
@@ -337,13 +328,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    // Insert new imagesList
     public void insertListImages(List<Images> images) {
         for (int i = 0; i < images.size(); i++) {
             ContentValues values = new ContentValues();
             values.put(KEY_IMG_PLACE_ID, images.get(i).place_id);
             values.put(KEY_IMG_NAME, images.get(i).name);
-            // Inserting or Update Row
             db.insertWithOnConflict(TABLE_IMAGES, null, values, SQLiteDatabase.CONFLICT_REPLACE);
         }
     }

@@ -122,19 +122,12 @@ public class GPSLocation {
     }
 
     public static GoogleMap configStaticMap(Activity act, GoogleMap googleMap, Place place) {
-        // set map type
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        // Enable / Disable zooming controls
         googleMap.getUiSettings().setZoomControlsEnabled(false);
-        // Enable / Disable my location button
         googleMap.getUiSettings().setMyLocationButtonEnabled(false);
-        // Enable / Disable Compass icon
         googleMap.getUiSettings().setCompassEnabled(false);
-        // Enable / Disable Rotate gesture
         googleMap.getUiSettings().setRotateGesturesEnabled(false);
-        // Enable / Disable zooming functionality
         googleMap.getUiSettings().setZoomGesturesEnabled(false);
-        // enable traffic layer
         googleMap.isTrafficEnabled();
         googleMap.setTrafficEnabled(false);
         googleMap.getUiSettings().setScrollGesturesEnabled(false);
@@ -153,18 +146,11 @@ public class GPSLocation {
     }
 
     public static GoogleMap configActivityMaps(GoogleMap googleMap) {
-        // set map type
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        // Enable / Disable zooming controls
         googleMap.getUiSettings().setZoomControlsEnabled(true);
-
-        // Enable / Disable Compass icon
         googleMap.getUiSettings().setCompassEnabled(true);
-        // Enable / Disable Rotate gesture
         googleMap.getUiSettings().setRotateGesturesEnabled(true);
-        // Enable / Disable zooming functionality
         googleMap.getUiSettings().setZoomGesturesEnabled(true);
-
         googleMap.getUiSettings().setScrollGesturesEnabled(true);
         googleMap.getUiSettings().setMapToolbarEnabled(true);
 
@@ -223,14 +209,14 @@ public class GPSLocation {
     public static int colorDarker(int color) {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
-        hsv[2] *= 0.8f; // value component
+        hsv[2] *= 0.8f;
         return Color.HSVToColor(hsv);
     }
 
     public static int colorBrighter(int color) {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
-        hsv[2] /= 0.8f; // value component
+        hsv[2] /= 0.8f;
         return Color.HSVToColor(hsv);
     }
 
@@ -322,7 +308,6 @@ public class GPSLocation {
                 continue;
             }
             if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
-                // Found best last known location: %s", l);
                 bestLocation = l;
             }
         }
@@ -331,7 +316,6 @@ public class GPSLocation {
     }
 
     private static LocationListener requestLocationUpdate(LocationManager manager) {
-        // Define a listener that responds to location updates
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
             }
@@ -346,7 +330,6 @@ public class GPSLocation {
             }
         };
 
-        // Register the listener with the Location Manager to receive location updates
         manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
         return locationListener;

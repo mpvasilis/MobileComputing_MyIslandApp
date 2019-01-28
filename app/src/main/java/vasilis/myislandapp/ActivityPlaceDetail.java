@@ -28,6 +28,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -42,6 +43,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import vasilis.myislandapp.adapter.AdapterImageList;
 import vasilis.myislandapp.api.RestAdapter;
+import vasilis.myislandapp.api.callbacks.CallBackBeachOverallRating;
 import vasilis.myislandapp.api.callbacks.CallBackBeachRating;
 import vasilis.myislandapp.api.callbacks.CallbackPlaceDetails;
 import vasilis.myislandapp.data.DatabaseHandler;
@@ -64,6 +66,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
     private boolean isFromNotif = false;
     private Call<CallbackPlaceDetails> callback;
     private Call<CallBackBeachRating> callbackBeachRating;
+    private Call<CallBackBeachOverallRating> overallratingcallback;
     private View lyt_progress;
     private View lyt_distance;
     private float distance = -1;
@@ -254,7 +257,6 @@ public class ActivityPlaceDetail extends AppCompatActivity {
                     if (googleMap == null) {
                         Snackbar.make(parent_view, R.string.unable_create_map, Snackbar.LENGTH_SHORT).show();
                     } else {
-                        // config map
                         googleMap = GPSLocation.configStaticMap(ActivityPlaceDetail.this, googleMap, place);
                     }
                 }
@@ -311,9 +313,18 @@ public class ActivityPlaceDetail extends AppCompatActivity {
                         public void onResponse(Call<CallBackBeachRating> call, Response<CallBackBeachRating> response) {
                             CallBackBeachRating resp = response.body();
                             if (resp != null) {
-                                ((TextView) findViewById(R.id.rating)).setText(resp.overallRating);
+                                Toast.makeText(getApplicationContext(), getString(R.string.rating_saved), Toast.LENGTH_LONG).show();
+                                try {
+                                    ((TextView) findViewById(R.id.rating)).setText(resp.overallRating);
+                                } catch (Exception e) {
+                                    Log.e("ActivityPlaceDetail", e.toString());
+                                }
                             } else {
-                                ((TextView) findViewById(R.id.rating)).setText("-");
+                                try {
+                                    ((TextView) findViewById(R.id.rating)).setText(resp.overallRating);
+                                } catch (Exception e) {
+                                    Log.e("ActivityPlaceDetail", e.toString());
+                                }
                             }
                         }
 
@@ -379,8 +390,45 @@ public class ActivityPlaceDetail extends AppCompatActivity {
         } else {
             displayData(place);
         }
+        loadoverallRating(place.id);
     }
 
+
+    private void loadoverallRating(int place_id) {
+        overallratingcallback = RestAdapter.createAPI().getBeachOverallRating(place_id);
+        overallratingcallback.enqueue(new retrofit2.Callback<CallBackBeachOverallRating>() {
+            @Override
+            public void onResponse(Call<CallBackBeachOverallRating> call, Response<CallBackBeachOverallRating> response) {
+                CallBackBeachOverallRating resp = response.body();
+                if (resp != null) {
+                    try {
+                        ((TextView) findViewById(R.id.rating)).setText(resp.overallRating);
+                    } catch (Exception e) {
+                        Log.e("ActivityPlaceDetail", e.toString());
+                    }
+                } else {
+                    try {
+                        ((TextView) findViewById(R.id.rating)).setText("-");
+                    } catch (Exception e) {
+                        Log.e("ActivityPlaceDetail", e.toString());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<CallBackBeachOverallRating> call, Throwable t) {
+                if (call != null && !call.isCanceled()) {
+                    boolean conn = GPSLocation.cekConnection(ActivityPlaceDetail.this);
+                    if (conn) {
+
+                    } else {
+
+                    }
+                }
+            }
+        });
+    }
     private void requestDetailsPlace(int place_id) {
         if (onProcess) {
             Snackbar.make(parent_view, R.string.task_running, Snackbar.LENGTH_SHORT).show();
@@ -414,6 +462,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     private void displayDataWithDelay(final Place resp) {
