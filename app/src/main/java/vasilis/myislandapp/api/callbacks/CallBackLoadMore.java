@@ -5,4 +5,5 @@ import java.io.Serializable;
 public class CallBackLoadMore implements Serializable {
 
     public String status;
+    public String loadMore;
 }

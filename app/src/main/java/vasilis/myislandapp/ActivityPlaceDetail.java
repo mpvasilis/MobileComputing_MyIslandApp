@@ -303,9 +303,9 @@ public class ActivityPlaceDetail extends AppCompatActivity {
             findViewById(R.id.bt_sendRating).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int rating = ratingBar.getNumStars();
+                    int rating = Math.round(ratingBar.getRating());
                     ratingBar.setIsIndicator(true);
-
+                    findViewById(R.id.bt_loadMoreImages).setVisibility(View.GONE);
                     callbackBeachRating = RestAdapter.createAPI().rateBeach(place.id, rating, deviceID);
                     callbackBeachRating.enqueue(new Callback<CallBackBeachRating>() {
                         @Override
@@ -314,6 +314,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
                             if (resp != null) {
 
                             } else {
+
                             }
                         }
 
