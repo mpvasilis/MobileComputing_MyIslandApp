@@ -45,6 +45,7 @@ import vasilis.myislandapp.adapter.AdapterImageList;
 import vasilis.myislandapp.api.RestAdapter;
 import vasilis.myislandapp.api.callbacks.CallBackBeachOverallRating;
 import vasilis.myislandapp.api.callbacks.CallBackBeachRating;
+import vasilis.myislandapp.api.callbacks.CallBackLoadMore;
 import vasilis.myislandapp.api.callbacks.CallbackPlaceDetails;
 import vasilis.myislandapp.data.DatabaseHandler;
 import vasilis.myislandapp.data.SharedPref;
@@ -67,6 +68,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
     private Call<CallbackPlaceDetails> callback;
     private Call<CallBackBeachRating> callbackBeachRating;
     private Call<CallBackBeachOverallRating> overallratingcallback;
+    private Call<CallBackLoadMore> loadmorecallback;
     private View lyt_progress;
     private View lyt_distance;
     private float distance = -1;
@@ -289,6 +291,44 @@ public class ActivityPlaceDetail extends AppCompatActivity {
         findViewById(R.id.bt_loadMore).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                findViewById(R.id.bt_loadMore).setVisibility(View.GONE);
+                loadmorecallback = RestAdapter.createAPI().loadMore(place.id);
+                loadmorecallback.enqueue(new Callback<CallBackLoadMore>() {
+                    @Override
+                    public void onResponse(Call<CallBackLoadMore> call, Response<CallBackLoadMore> response) {
+                        CallBackLoadMore resp = response.body();
+                        if (resp != null) {
+                            try {
+                                String html_data = "<style>img{max-width:100%;height:auto;} iframe{width:100%;}</style> ";
+                                html_data += place.description;
+                                html_data += "<br><br>";
+                                html_data += resp.loadMore;
+                                description.loadData(html_data, "text/html; charset=UTF-8", null);
+                            } catch (Exception e) {
+                                Log.e("ActivityPlaceDetail", e.toString());
+                            }
+                        } else {
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<CallBackLoadMore> call, Throwable t) {
+                        if (call != null && !call.isCanceled()) {
+                            Log.e("onFailure", t.getMessage());
+                            boolean conn = GPSLocation.cekConnection(getApplicationContext());
+                            if (conn) {
+
+                            } else {
+
+                            }
+                        }
+                    }
+
+                });
+
+
             }
         });
 

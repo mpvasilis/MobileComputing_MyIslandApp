@@ -15,7 +15,7 @@ import vasilis.myislandapp.api.callbacks.CallbackPlaceDetails;
 public interface API {
 
     String CACHE = "Cache-Control: max-age=0";
-    String AGENT = "User-Agent: Place";
+    String AGENT = "User-Agent: MyIslandApp";
 
     @Headers({CACHE, AGENT})
     @GET("places")
