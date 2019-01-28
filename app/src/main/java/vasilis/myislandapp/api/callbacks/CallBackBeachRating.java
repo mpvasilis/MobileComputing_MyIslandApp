@@ -5,6 +5,6 @@ import java.io.Serializable;
 public class CallBackBeachRating implements Serializable {
 
     public String status;
-    public float overallRating;
+    public String overallRating;
 
 }

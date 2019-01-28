@@ -131,7 +131,6 @@ public class ActivityPlaceDetail extends AppCompatActivity {
         description.setWebChromeClient(new WebChromeClient());
         description.loadData(html_data, "text/html; charset=UTF-8", null);
         description.getSettings().setJavaScriptEnabled(true);
-        // disable scroll on touch
         description.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 return (event.getAction() == MotionEvent.ACTION_MOVE);
@@ -305,16 +304,16 @@ public class ActivityPlaceDetail extends AppCompatActivity {
                 public void onClick(View view) {
                     int rating = Math.round(ratingBar.getRating());
                     ratingBar.setIsIndicator(true);
-                    findViewById(R.id.bt_loadMoreImages).setVisibility(View.GONE);
+                    findViewById(R.id.bt_sendRating).setVisibility(View.GONE);
                     callbackBeachRating = RestAdapter.createAPI().rateBeach(place.id, rating, deviceID);
                     callbackBeachRating.enqueue(new Callback<CallBackBeachRating>() {
                         @Override
                         public void onResponse(Call<CallBackBeachRating> call, Response<CallBackBeachRating> response) {
                             CallBackBeachRating resp = response.body();
                             if (resp != null) {
-
+                                ((TextView) findViewById(R.id.rating)).setText(resp.overallRating);
                             } else {
-
+                                ((TextView) findViewById(R.id.rating)).setText("-");
                             }
                         }
 
