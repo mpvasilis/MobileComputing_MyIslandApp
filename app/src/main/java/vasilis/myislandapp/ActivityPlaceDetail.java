@@ -161,21 +161,21 @@ public class ActivityPlaceDetail extends AppCompatActivity {
     public void clickLayout(View view) {
         switch (view.getId()) {
             case R.id.lyt_address:
-                if (!place.isDraft()) {
+                if (!place.isEmpty()) {
                     Uri uri = Uri.parse("http://maps.google.com/maps?q=loc:" + place.lat + "," + place.lng);
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                     startActivity(intent);
                 }
                 break;
             case R.id.lyt_phone:
-                if (!place.isDraft() && !place.phone.equals("-") && !place.phone.trim().equals("")) {
+                if (!place.isEmpty() && !place.phone.equals("-") && !place.phone.trim().equals("")) {
                     GPSLocation.dialNumber(this, place.phone);
                 } else {
                     Snackbar.make(parent_view, R.string.fail_dial_number, Snackbar.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.lyt_website:
-                if (!place.isDraft() && !place.website.equals("-") && !place.website.trim().equals("")) {
+                if (!place.isEmpty() && !place.website.equals("-") && !place.website.trim().equals("")) {
                     GPSLocation.directUrl(this, place.website);
                 } else {
                     Snackbar.make(parent_view, R.string.fail_open_website, Snackbar.LENGTH_SHORT).show();
@@ -381,7 +381,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
 
     private void loadPlaceData() {
         place = db.getPlace(place.id);
-        if (place.isDraft()) {
+        if (place.isEmpty()) {
             if (GPSLocation.cekConnection(this)) {
                 requestDetailsPlace(place.id);
             } else {

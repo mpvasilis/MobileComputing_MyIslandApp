@@ -28,7 +28,7 @@ public class Place implements Serializable, ClusterItem {
         return new LatLng(lat, lng);
     }
 
-    public boolean isDraft() {
+    public boolean isEmpty() {
         return (address == null && phone == null && website == null && description == null);
     }
 
