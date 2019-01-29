@@ -65,7 +65,6 @@ public class ActivityPlaceDetail extends AppCompatActivity {
     private GoogleMap googleMap;
     private DatabaseHandler db;
     private boolean onProcess = false;
-    private boolean isFromNotif = false;
     private Call<CallbackPlaceDetails> callback;
     private Call<CallBackBeachRating> callbackBeachRating;
     private Call<CallBackBeachOverallRating> overallratingcallback;
@@ -107,8 +106,6 @@ public class ActivityPlaceDetail extends AppCompatActivity {
 
         db = new DatabaseHandler(this);
         ViewCompat.setTransitionName(findViewById(R.id.app_bar_layout), EXTRA_OBJ);
-
-        isFromNotif = getIntent().getBooleanExtra(EXTRA_NOTIF_FLAG, false);
 
         lyt_progress = findViewById(R.id.lyt_progress);
         lyt_distance = findViewById(R.id.lyt_distance);
@@ -441,10 +438,8 @@ public class ActivityPlaceDetail extends AppCompatActivity {
     }
 
     private void backAction() {
-        if (isFromNotif) {
-            Intent i = new Intent(this, ActivityMain.class);
-            startActivity(i);
-        }
+        Intent i = new Intent(this, ActivityMain.class);
+        startActivity(i);
         finish();
     }
 

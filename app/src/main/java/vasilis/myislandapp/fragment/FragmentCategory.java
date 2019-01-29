@@ -226,7 +226,7 @@ public class FragmentCategory extends Fragment {
             @Override
             public void onLoadMore(final int current_page) {
                 if (item_count > adapter.getItemCount() && current_page != 0) {
-                    displayDataByPage(current_page);
+                    displayData(current_page);
                 } else {
                     adapter.setLoaded();
                 }
@@ -234,7 +234,7 @@ public class FragmentCategory extends Fragment {
         });
     }
 
-    private void displayDataByPage(final int next_page) {
+    private void displayData(final int next_page) {
         adapter.setLoading();
         new Handler().postDelayed(new Runnable() {
             @Override
