@@ -41,6 +41,7 @@
     <string name="map_view">ΠΡΟΒΟΛΗ</string>
     <string name="map_navigate">ΟΔΗΓΙΕΣ</string>
     <string name="loadMore">Φόρτωση περισσοτερων</string>
+    <string name="no_more">Δεν υπάρχουν περισσότερα προς φόρτωση.</string>
 
     <string name="rateBeach">Βαθμολογία</string>
     <string name="sendRating">ΒΑΘΜΟΛΟΓΗΣΤΕ</string>

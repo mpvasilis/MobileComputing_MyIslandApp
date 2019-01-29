@@ -46,6 +46,7 @@ import vasilis.myislandapp.api.RestAdapter;
 import vasilis.myislandapp.api.callbacks.CallBackBeachOverallRating;
 import vasilis.myislandapp.api.callbacks.CallBackBeachRating;
 import vasilis.myislandapp.api.callbacks.CallBackLoadMore;
+import vasilis.myislandapp.api.callbacks.CallBackLoadMoreImages;
 import vasilis.myislandapp.api.callbacks.CallbackPlaceDetails;
 import vasilis.myislandapp.data.DatabaseHandler;
 import vasilis.myislandapp.data.SharedPref;
@@ -69,6 +70,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
     private Call<CallBackBeachRating> callbackBeachRating;
     private Call<CallBackBeachOverallRating> overallratingcallback;
     private Call<CallBackLoadMore> loadmorecallback;
+    private Call<CallBackLoadMoreImages> loadmoreimagescallback;
     private View lyt_progress;
     private View lyt_distance;
     private float distance = -1;
@@ -156,6 +158,8 @@ public class ActivityPlaceDetail extends AppCompatActivity {
     protected void onResume() {
         if (!imgloader.isInited()) GPSLocation.initImageLoader(getApplicationContext());
         loadPlaceData();
+        findViewById(R.id.bt_loadMoreImages).setVisibility(View.VISIBLE);
+        findViewById(R.id.bt_loadMore).setVisibility(View.VISIBLE);
         if (description != null) description.onResume();
         super.onResume();
     }
@@ -298,7 +302,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<CallBackLoadMore> call, Response<CallBackLoadMore> response) {
                         CallBackLoadMore resp = response.body();
-                        if (resp != null) {
+                        if (resp.status.equals("success")) {
                             try {
                                 String html_data = "<style>img{max-width:100%;height:auto;} iframe{width:100%;}</style> ";
                                 html_data += place.description;
@@ -309,7 +313,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
                                 Log.e("ActivityPlaceDetail", e.toString());
                             }
                         } else {
-
+                            Toast.makeText(getApplicationContext(), getString(R.string.no_more), Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -318,16 +322,12 @@ public class ActivityPlaceDetail extends AppCompatActivity {
                         if (call != null && !call.isCanceled()) {
                             Log.e("onFailure", t.getMessage());
                             boolean conn = GPSLocation.cekConnection(getApplicationContext());
-                            if (conn) {
-
-                            } else {
-
+                            if (!conn) {
+                                Toast.makeText(getApplicationContext(), getString(R.string.no_internet), Toast.LENGTH_LONG).show();
                             }
                         }
                     }
-
                 });
-
 
             }
         });
@@ -335,6 +335,37 @@ public class ActivityPlaceDetail extends AppCompatActivity {
         findViewById(R.id.bt_loadMoreImages).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                findViewById(R.id.bt_loadMoreImages).setVisibility(View.GONE);
+                loadmoreimagescallback = RestAdapter.createAPI().loadMoreImages(place.id);
+                loadmoreimagescallback.enqueue(new Callback<CallBackLoadMoreImages>() {
+                    @Override
+                    public void onResponse(Call<CallBackLoadMoreImages> call, Response<CallBackLoadMoreImages> response) {
+                        CallBackLoadMoreImages resp = response.body();
+                        if (resp.status.equals("success")) {
+                            try {
+                                setImageGallery(resp.images);
+                            } catch (Exception e) {
+                                Log.e("ActivityPlaceDetail", e.toString());
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), getString(R.string.no_more), Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<CallBackLoadMoreImages> call, Throwable t) {
+                        if (call != null && !call.isCanceled()) {
+                            Log.e("onFailure", t.getMessage());
+                            boolean conn = GPSLocation.cekConnection(getApplicationContext());
+                            if (!conn) {
+                                Toast.makeText(getApplicationContext(), getString(R.string.no_internet), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                });
+
+
             }
         });
 
@@ -373,10 +404,8 @@ public class ActivityPlaceDetail extends AppCompatActivity {
                             if (call != null && !call.isCanceled()) {
                                 Log.e("onFailure", t.getMessage());
                                 boolean conn = GPSLocation.cekConnection(getApplicationContext());
-                                if (conn) {
-
-                                } else {
-
+                                if (!conn) {
+                                    Toast.makeText(getApplicationContext(), getString(R.string.no_internet), Toast.LENGTH_LONG).show();
                                 }
                             }
                         }
@@ -431,6 +460,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
             displayData(place);
         }
         loadoverallRating(place.id);
+
     }
 
 
@@ -440,7 +470,7 @@ public class ActivityPlaceDetail extends AppCompatActivity {
             @Override
             public void onResponse(Call<CallBackBeachOverallRating> call, Response<CallBackBeachOverallRating> response) {
                 CallBackBeachOverallRating resp = response.body();
-                if (resp != null) {
+                if (resp.status.equals("success")) {
                     try {
                         ((TextView) findViewById(R.id.rating)).setText(resp.overallRating);
                     } catch (Exception e) {

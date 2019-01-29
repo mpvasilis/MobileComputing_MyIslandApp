@@ -19,7 +19,7 @@ public interface API {
 
     @Headers({CACHE, AGENT})
     @GET("places")
-    Call<CallBackListPlace> getPlacesByPage(
+    Call<CallBackListPlace> getPlaces(
             @Query("page") int page,
             @Query("count") int count
     );

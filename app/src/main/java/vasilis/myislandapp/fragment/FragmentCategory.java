@@ -262,7 +262,7 @@ public class FragmentCategory extends Fragment {
     private void onRefresh(final int page_no) {
         onProcess = true;
         showProgress(onProcess);
-        callback = RestAdapter.createAPI().getPlacesByPage(page_no, 50);
+        callback = RestAdapter.createAPI().getPlaces(page_no, 50);
         callback.enqueue(new retrofit2.Callback<CallBackListPlace>() {
             @Override
             public void onResponse(Call<CallBackListPlace> call, Response<CallBackListPlace> response) {
