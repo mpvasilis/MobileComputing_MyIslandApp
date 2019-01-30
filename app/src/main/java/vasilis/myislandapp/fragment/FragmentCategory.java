@@ -21,9 +21,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import vasilis.myislandapp.ActivityMain;
 import vasilis.myislandapp.ActivityPlaceDetail;
@@ -32,6 +34,7 @@ import vasilis.myislandapp.R;
 import vasilis.myislandapp.adapter.AdapterPlaceGrid;
 import vasilis.myislandapp.api.RestAdapter;
 import vasilis.myislandapp.api.callbacks.CallBackListPlace;
+import vasilis.myislandapp.api.callbacks.CallbackBeachesByRating;
 import vasilis.myislandapp.data.DatabaseHandler;
 import vasilis.myislandapp.data.SharedPref;
 import vasilis.myislandapp.data.ThisApplication;
@@ -58,6 +61,8 @@ public class FragmentCategory extends Fragment {
     private AdapterPlaceGrid adapter;
 
     private Call<CallBackListPlace> callback;
+    private Call<CallbackBeachesByRating> getbeachesbyratingcallback;
+
     private boolean onProcess = false;
     private boolean dialogopend = false;
 
@@ -132,7 +137,7 @@ public class FragmentCategory extends Fragment {
             top_beaches.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startLoadMoreAdapter();
+                    startLoadMoreAdapterBasedOnRating();
                     dialog.dismiss();
                     dialogopend = false;
 
@@ -232,6 +237,43 @@ public class FragmentCategory extends Fragment {
                 }
             }
         });
+    }
+
+    private void startLoadMoreAdapterBasedOnRating() {
+        getbeachesbyratingcallback = RestAdapter.createAPI().getBaeachesbyRating();
+        getbeachesbyratingcallback.enqueue(new Callback<CallbackBeachesByRating>() {
+            @Override
+            public void onResponse(Call<CallbackBeachesByRating> call, Response<CallbackBeachesByRating> response) {
+                CallbackBeachesByRating resp = response.body();
+
+                adapter.resetListData();
+                List<Place> items = resp.beaches;
+                items.sort(Comparator.comparing(Place::getOverallRating).reversed());
+                adapter.insertData(items);
+                showNoItemView();
+                final int item_count = items.size();
+                adapter.setOnLoadMoreListener(new AdapterPlaceGrid.OnLoadMoreListener() {
+                    @Override
+                    public void onLoadMore(final int current_page) {
+                        if (item_count > adapter.getItemCount() && current_page != 0) {
+                            displayData(current_page);
+                        } else {
+                            adapter.setLoaded();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<CallbackBeachesByRating> call, Throwable t) {
+                if (call != null && !call.isCanceled()) {
+                    Log.e("onFailure", t.getMessage());
+
+                }
+            }
+        });
+
+
     }
 
     private void displayData(final int next_page) {

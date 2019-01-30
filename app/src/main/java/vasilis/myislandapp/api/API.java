@@ -10,6 +10,7 @@ import vasilis.myislandapp.api.callbacks.CallBackBeachRating;
 import vasilis.myislandapp.api.callbacks.CallBackListPlace;
 import vasilis.myislandapp.api.callbacks.CallBackLoadMore;
 import vasilis.myislandapp.api.callbacks.CallBackLoadMoreImages;
+import vasilis.myislandapp.api.callbacks.CallbackBeachesByRating;
 import vasilis.myislandapp.api.callbacks.CallbackPlaceDetails;
 
 public interface API {
@@ -57,6 +58,9 @@ public interface API {
 
     );
 
+    @Headers({CACHE, AGENT})
+    @GET("getBeachesbyRating")
+    Call<CallbackBeachesByRating> getBaeachesbyRating();
 
 
 }

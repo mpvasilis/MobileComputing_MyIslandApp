@@ -5,7 +5,7 @@ android {
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "vasilis.myislandapp"
-        minSdkVersion 14
+        minSdkVersion 24
         targetSdkVersion 27
         versionCode 10
         versionName "1.0"
@@ -24,6 +24,10 @@ android {
                 }
             }
         }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
 }
 

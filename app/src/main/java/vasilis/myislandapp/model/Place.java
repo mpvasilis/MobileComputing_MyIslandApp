@@ -20,6 +20,7 @@ public class Place implements Serializable, ClusterItem {
     public long last_update;
     public float distance = -1;
     public int category;
+    public float OverallRating = -1;
 
     public List<Images> images = new ArrayList<>();
 
@@ -30,6 +31,10 @@ public class Place implements Serializable, ClusterItem {
 
     public boolean isEmpty() {
         return (address == null && phone == null && website == null && description == null);
+    }
+
+    public float getOverallRating() {
+        return OverallRating;
     }
 
 }
