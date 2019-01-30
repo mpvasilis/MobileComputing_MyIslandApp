@@ -124,8 +124,8 @@ public class ActivityPlaceDetail extends AppCompatActivity {
 
     private void displayData(Place p) {
         ((TextView) findViewById(R.id.address)).setText(p.address);
-        ((TextView) findViewById(R.id.phone)).setText(p.phone.equals("-") || p.phone.trim().equals("") ? getString(R.string.no_phone_number) : p.phone);
-        ((TextView) findViewById(R.id.website)).setText(p.website.equals("-") || p.website.trim().equals("") ? getString(R.string.no_website) : p.website);
+        ((TextView) findViewById(R.id.phone)).setText(p.phone.equals("-") || p.phone.equals("") ? getString(R.string.no_phone_number) : p.phone);
+        ((TextView) findViewById(R.id.website)).setText(p.website.equals("-") || p.website.equals("") ? getString(R.string.no_website) : p.website);
 
         description = findViewById(R.id.description);
         String html_data = "<style>img{max-width:100%;height:auto;} iframe{width:100%;}</style> ";

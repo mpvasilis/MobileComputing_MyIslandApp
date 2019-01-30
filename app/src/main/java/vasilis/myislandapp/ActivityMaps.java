@@ -41,8 +41,8 @@ import vasilis.myislandapp.utils.PermissionUtil;
 public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallback {
 
     public static final String EXTRA_OBJ = "key.EXTRA_OBJ";
-    public static final double city_lat = 40.301029;
-    public static final double city_lng = 21.785959;
+    public static final double city_lat = 37.4335963;
+    public static final double city_lng = 25.1082281;
     HashMap<String, Place> hashMapPlaces = new HashMap<>();
     private GoogleMap mMap;
     private Toolbar toolbar;
@@ -79,7 +79,6 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
 
         cat = getResources().getIntArray(R.array.id_category);
 
-        // for system bar in lollipop
         GPSLocation.systemBarLolipop(this);
     }
 
@@ -121,7 +120,6 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
 
     private void showMyLocation() {
         if (PermissionUtil.isLocationGranted(this)) {
-            // Enable / Disable my location button
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
             mMap.setMyLocationEnabled(true);
             mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
@@ -160,7 +158,6 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void initMapFragment() {
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
@@ -201,7 +198,6 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
 
                 }
 
-                // get category object when menu click
                 cur_category = db.getCategory(cat_id);
 
                 if (isSinglePlace) {
@@ -248,7 +244,7 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
 
         @Override
         protected void onBeforeClusterItemRendered(Place item, MarkerOptions markerOptions) {
-            if (cat_id == -1) { // all place
+            if (cat_id == -1) {
                 icon.setImageResource(R.drawable.round_shape);
             } else {
                 icon.setImageResource(cur_category.icon);
