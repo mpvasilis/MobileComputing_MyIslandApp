@@ -94,7 +94,6 @@ public class ActivitySearch extends AppCompatActivity {
         recyclerSuggestion.setLayoutManager(new LinearLayoutManager(this));
         recyclerSuggestion.setHasFixedSize(true);
 
-        //set data and list adapter
         mAdapter = new AdapterPlaceGrid(this, recyclerView, new ArrayList<Place>());
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new AdapterPlaceGrid.OnItemClickListener() {
@@ -104,7 +103,6 @@ public class ActivitySearch extends AppCompatActivity {
             }
         });
 
-        //set data and list adapter suggestion
         mAdapterSuggestion = new AdapterSuggestionSearch(this);
         recyclerSuggestion.setAdapter(mAdapterSuggestion);
         showSuggestionSearch();

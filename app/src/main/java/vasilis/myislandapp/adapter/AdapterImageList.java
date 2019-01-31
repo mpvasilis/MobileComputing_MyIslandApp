@@ -46,7 +46,6 @@ public class AdapterImageList extends RecyclerView.Adapter<AdapterImageList.View
         holder.lyt_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // Give some delay to the ripple to finish the effect
                 onItemClickListener.onItemClick(v, p, position);
             }
         });
